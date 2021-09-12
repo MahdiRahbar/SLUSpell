@@ -1,0 +1,23 @@
+Spell_Checker
+├── src/
+│   ├── __init__.py
+│   ├── db.py
+│   ├── schema.sql
+│   ├── auth.py
+│   ├── blog.py
+│   ├── templates/
+│   │   ├── base.html
+│   │   ├── auth/
+│   │   │   ├── login.html
+│   │   └   └── register.html
+│   └── static/
+│		├── style.css
+│       └── script.js
+├── tests/
+│   ├── conftest.py
+│   ├── data.sql
+│   ├── test_db.py
+│   └── test_auth.py
+├── venv/
+├── setup.py
+└── MANIFEST.in
