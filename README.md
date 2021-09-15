@@ -1,6 +1,8 @@
-## Spell_Checker
+[![Build Status](https://app.travis-ci.com/MahdiRahbar/Spell_Checker.svg?branch=main)](https://app.travis-ci.com/MahdiRahbar/Spell_Checker)
 
-Spell Checker is a small project aiming to experience better ways to find spelling mistakes and predict what the writer tends to say. 
+# Spell Checker
+
+Spell Checker is a small project that aims to improve ways to find spelling mistakes and predict what the writer tends to say. 
 
 *****
 ## Usage Guide
