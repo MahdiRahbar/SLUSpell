@@ -14,10 +14,10 @@
 <div  style=" padding: .5%;">
 
   <img src="../static/img/logo.png" style="width: 5%; height: 5%; float: left; position: relative; margin: .2%;">
-  <a href="./auth/login.html" type="button" class="btn btn-primary" data-toggle="button" role="button" aria-pressed="false" autocomplete="off" style="float: right;margin: .2%;">
+  <a href="{{ url_for('login') }}" type="button" class="btn btn-primary"   aria-pressed="false"  style="float: right;margin: .2%;">
     Login
   </a>
-  <a href="./auth/register.html" type="button" class="btn btn-primary " data-toggle="button" role="button" aria-pressed="false" autocomplete="off" style="float: right;margin: .2%;">
+  <a href="{{ url_for('register') }}" type="button" class="btn btn-primary "  aria-pressed="false"  style="float: right;margin: .2%;">
     Register
   </a>
 
@@ -90,7 +90,7 @@
         
         <div class="form-group">
           <label for="Text_box"><h2>Enter your text here! :)</h2></label>
-          <textarea class="form-control" id="Text_box" rows="3" style="width: 92%; margin-bottom: 5%;"></textarea>
+          <textarea class="form-control" id="Text_box" rows="3" style="width: 92%; margin-bottom: 5%;" placeholder="Enter your text here..."></textarea>
 
           <a class="reset btn btn-primary disabled" id="edit_btn"  onclick="spell_check_enable()" href="#" >Edit</a>  <!---    target="_blank"    -->
                 <a class="reset btn btn-primary" id="spell_check_btn" onclick="highlight('this')" href="#" >Spell Checking!</a>  <!---    target="_blank"    -->
