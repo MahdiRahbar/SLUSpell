@@ -1,5 +1,8 @@
 ###### Requirements without Version Specifiers ######`
 flask
+flask[async]
 pytest
 
+
 ###### Requirements with Version Specifiers ######`
+hunspell==0.5.5
