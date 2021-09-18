@@ -2,7 +2,6 @@
 flask
 asyncio
 pytest
-hunspell
 
 ###### Requirements with Version Specifiers ######`
 
