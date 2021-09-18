@@ -1,6 +1,6 @@
 ###### Requirements without Version Specifiers ######`
 flask
-flask[async]
+asyncio
 pytest
 
 
