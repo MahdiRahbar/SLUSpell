@@ -1,5 +1,7 @@
 ###### Requirements without Version Specifiers ######`
 flask
+asyncio
 pytest
 
 ###### Requirements with Version Specifiers ######`
+
