@@ -58,7 +58,7 @@ function highlight(text) {
   var index = innerHTML.indexOf(text);
   if (index >= 0) { 
   //  innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
-  innerHTML = innerHTML.substring(0,index) + "<span class='highlight popup' onclick='popup_function()'><span class='popuptext' id='pop-up'>This</span>" + innerHTML.substring(index,index+text.length) + "</span></span>" + innerHTML.substring(index + text.length);
+  innerHTML = innerHTML.substring(0,index) + "<span class='highlight popup' onmouseover='popup_function()'><span class='popuptext' id='pop-up'>This</span>" + innerHTML.substring(index,index+text.length) + "</span></span>" + innerHTML.substring(index + text.length);
   //  inputText.innerHTML = innerHTML;
   }
 
