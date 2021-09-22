@@ -1,4 +1,4 @@
-[![Build Status](https://app.travis-ci.com/MahdiRahbar/Spell_Checker.svg?branch=main)](https://app.travis-ci.com/MahdiRahbar/Spell_Checker) ![](https://komarev.com/ghpvc/?username=mahdirahbar/Spell_Checker&style=flat-square)
+[![Build Status](https://app.travis-ci.com/MahdiRahbar/Spell_Checker.svg?branch=main)](https://app.travis-ci.com/MahdiRahbar/Spell_Checker)
 
 # Spell Checker
 
