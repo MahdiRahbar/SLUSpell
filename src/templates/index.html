@@ -87,20 +87,49 @@
       </div> -->
 
       <div class="slider-form slider-three">
-        {% block textInput %}
+        <!--{% block textInput %} -->
           <div id="form-group">
             <form action="/" id="input_text_form" method="POST">  
               <label for="Text_box"><h2>Enter your text here! :)</h2></label>
               <textarea class="form-control" id="Text_box" name='input_text' rows="3" style="width: 100%; margin-bottom: 5%;" placeholder="Enter your text here..."></textarea>
+              
                     
               <!-- <a class="reset btn btn-primary disabled" id="edit_btn"  onclick="spell_check_enable()" href="#" >Edit</a>   -->
               <!--- <a class="reset btn btn-primary" id="spell_check_btn" onclick="highlight('this')" href="#" >Check!</a> -->  <!---    target="_blank"    -->
-              <input type="submit" class="btn btn-primary" id="spell_check_btn"  onclick="highlight('this')" name="submit" value="Check Spelling!"></input>
+             <!-- <input type="submit" class="btn btn-primary" id="spell_check_btn"  onclick="highlight('this')" name="submit" value="Check Spelling!"></input> -->
+<!--Word counter system below-->            
             </form>
-          </div>
-        {% endblock textInput %}
+            <p>
+              Word Count:
+              <span id="show">0</span>
+            </p>
+          
+          
+            <script>
+              document
+                .querySelector("#Text_box")
+                .addEventListener("keyup", function countWord() {
+                  let res = [];
+                  let str = this.value.replace(/[\t\n\r\.\?\!]/gm, " ").split(" ");
+                  str.map((s) => {
+                    let trimStr = s.trim();
+                    if (trimStr.length > 0) {
+                      res.push(trimStr);
+                    }
+                  });
+                  document.querySelector("#show").innerText = res.length;
+                });
+            </script>
+<!--Error counter location below -->
+              <p> 
+                Error Count:
+                <span id="show">holder</span>
+              </p>
 
-        {{ checked_text }}
+          </div>
+          
+         <!-- <p style="padding: 2px; border: 2px solid lightgrey;">Errors</p> -->
+
           <!-- <div style="margin-top: 5%;min-height: 150%;border-width: 0ex; border: solid; border-color: rgba(0, 88, 160, 0.35); padding: 1em; width: 100%;border-width: 2px;">
             <p id="Text_display" ></p>
           </div> -->

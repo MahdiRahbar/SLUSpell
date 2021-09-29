@@ -18,6 +18,12 @@ class SpellChecker():
     def call(self):
         Checked_text =  self.input_text
         return Checked_text
+    def errorCount(self):  #this is to send the error count total to the front end, still need to link it to html, nicolas 9/29/2021
+        Checked_text =  self.input_text
+        Error_Count = len(Checked_text)
+        return Error_Count
+
+        
 
 
 
