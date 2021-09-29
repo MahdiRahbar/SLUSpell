@@ -21,7 +21,7 @@ button:active,
 }
 
 .container {
-	width: 400px;
+	width: 500px;  /*  Previously 400 */
 	position: absolute;
 	top: 50%;
 	left: 50%;
