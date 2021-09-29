@@ -6,6 +6,8 @@
 
 
 from flask import Flask, render_template, request
+from apps.spellchecker import SpellChecker
+
 
 app = Flask(__name__)
 
@@ -15,11 +17,29 @@ def index():
     if request.method == 'GET':
         return render_template('index.html')
     else:
-        
+        input_text = request.form['input_text'] 
+        language_selector = request.form['language_selector'] 
+        formality_selector = request.form['formality_selector'] 
+        try:
+            spell_checker = SpellChecker(input_text, language_selector, formality_selector)
+            spellChecked_text = spell_checker.call()
+            return render_template('index.html', checked_text = spellChecked_text)            
+        except: 
+            error_message = 'Something went wrong! Please try latter!'
+            return render_template('index.html', checked_text = error_message)
 
-@app.route('/login', methods =['GET'])
+@app.route('/login', methods =['GET', 'Post'])
 def login():
-    return render_template('auth/login.html')
+    if request.method == 'GET':
+        return render_template('auth/login.html')
+    else:
+        username = request.form['Username'] 
+        password = request.form['Password']
+        if (username).lower() == 'kscanne@gmail.com' and password.lower() == 'programmingisfun':
+            return render_template('auth/login.html', message = 'Login Successful!')
+        else: 
+            error_message = 'The Login Information is Incorrect!'
+            return render_template('auth/login.html', message = error_message)
 
 @app.route('/register', methods =['GET'])
 def register():

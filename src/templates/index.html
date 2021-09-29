@@ -57,7 +57,7 @@
 
       <div class="form-group" style="justify-content: center;" >
         <label for="Language_Selection"><h2>Language</h2></label>
-        <select class="form-control" id="Language_Selection" style="width: 92%;">
+        <select class="form-control" id="Language_Selection" style="width: 100%;" form="input_text_form" name='language_selector'>
           <option selected value>English</option>
           <option disabled value>Spanish</option>
           <option disabled >More coming soon!</option>
@@ -71,7 +71,7 @@
 
         <div class="form-group" style="justify-content: center;" >
           <label for="Language_Selection"><h2>How Formal?</h2></label>
-          <select class="form-control" id="Language_Selection" style="width: 92%;">
+          <select class="form-control" id="Language_Selection" style="width: 100%;" form="input_text_form" name='formality_selector'>
             <option selected value>Formal</option>
             <option value>Informal</option>  
           </select>
@@ -87,23 +87,25 @@
       </div> -->
 
       <div class="slider-form slider-three">
-        
-        <div class="form-group">
-          <label for="Text_box"><h2>Enter your text here! :)</h2></label>
-          <textarea class="form-control" id="Text_box" rows="3" style="width: 92%; margin-bottom: 5%;" placeholder="Enter your text here..."></textarea>
+        {% block textInput %}
+          <div id="form-group">
+            <form action="/" id="input_text_form" method="POST">  
+              <label for="Text_box"><h2>Enter your text here! :)</h2></label>
+              <textarea class="form-control" id="Text_box" name='input_text' rows="3" style="width: 100%; margin-bottom: 5%;" placeholder="Enter your text here..."></textarea>
+                    
+              <!-- <a class="reset btn btn-primary disabled" id="edit_btn"  onclick="spell_check_enable()" href="#" >Edit</a>   -->
+              <!--- <a class="reset btn btn-primary" id="spell_check_btn" onclick="highlight('this')" href="#" >Check!</a> -->  <!---    target="_blank"    -->
+              <input type="submit" class="btn btn-primary" id="spell_check_btn"  onclick="highlight('this')" name="submit" value="Check Spelling!"></input>
+            </form>
+          </div>
+        {% endblock textInput %}
 
-          <a class="reset btn btn-primary disabled" id="edit_btn"  onclick="spell_check_enable()" href="#" >Edit</a>  <!---    target="_blank"    -->
-                <a class="reset btn btn-primary" id="spell_check_btn" onclick="highlight('this')" href="#" >Spell Checking!</a>  <!---    target="_blank"    -->
-
+        {{ checked_text }}
+          <!-- <div style="margin-top: 5%;min-height: 150%;border-width: 0ex; border: solid; border-color: rgba(0, 88, 160, 0.35); padding: 1em; width: 100%;border-width: 2px;">
+            <p id="Text_display" ></p>
+          </div> -->
 
         </div>
-
-
-        <div style="margin-top: 5%;min-height: 150%;border-width: 0ex; border: solid; border-color: rgba(0, 88, 160, 0.35); padding: 1em; width: 92%;border-width: 2px;">
-          <p id="Text_display" ></p>
-       </div>
-
-      </div>
 
     </div>
   </div>
