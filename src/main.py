@@ -8,6 +8,9 @@
 from flask import Flask, render_template, request
 from apps.spellchecker import SpellChecker
 
+# added for debugging purposes
+import logging, traceback 
+
 
 app = Flask(__name__)
 
@@ -20,13 +23,21 @@ def index():
         input_text = request.form['input_text'] 
         language_selector = request.form['language_selector'] 
         formality_selector = request.form['formality_selector'] 
+
+        spell_checker = SpellChecker(input_text, language_selector, formality_selector)
+        spellChecked_text = spell_checker.call()
+        return render_template('index.html', checked_text = spellChecked_text)  
         try:
             spell_checker = SpellChecker(input_text, language_selector, formality_selector)
             spellChecked_text = spell_checker.call()
             return render_template('index.html', checked_text = spellChecked_text)            
-        except: 
+        except Exception as e:
+            logging.error(traceback.format_exc())
             error_message = 'Something went wrong! Please try latter!'
             return render_template('index.html', checked_text = error_message)
+
+            
+    logging.error(traceback.format_exc())
 
 @app.route('/login', methods =['GET', 'Post'])
 def login():
