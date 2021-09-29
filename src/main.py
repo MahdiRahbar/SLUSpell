@@ -21,12 +21,9 @@ def index():
         language_selector = request.form['language_selector'] 
         formality_selector = request.form['formality_selector'] 
         try:
-            print("Yay! I work")
             spell_checker = SpellChecker(input_text, language_selector, formality_selector)
             spellChecked_text = spell_checker.call()
-            print("Yay! I worked again! ")
-            return render_template('index.html', checked_text = spellChecked_text)
-            
+            return render_template('index.html', checked_text = spellChecked_text)            
         except: 
             error_message = 'Something went wrong! Please try latter!'
             return render_template('index.html', checked_text = error_message)

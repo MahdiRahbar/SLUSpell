@@ -34,12 +34,13 @@ balapaCop("Step by Step Form", "#999");
 
 
 function edit_enable(){
-  document.getElementById("spell_check_btn").classList.add('disabled');
-  document.getElementById("edit_btn").classList.remove('disabled');
+  
+  // document.getElementById("spell_check_btn").classList.add('disabled');
+  // document.getElementById("edit_btn").classList.remove('disabled');
 }
 function spell_check_enable(){
-  document.getElementById("edit_btn").classList.add('disabled');
-  document.getElementById("spell_check_btn").classList.remove('disabled');
+  // document.getElementById("edit_btn").classList.add('disabled');
+  // document.getElementById("spell_check_btn").classList.remove('disabled');
 }
 
 function popup_function() {
@@ -49,25 +50,16 @@ function popup_function() {
 
 
 function highlight(text) {
-  // var inputText = document.getElementById("inputText");
-  // alert("hey")
-  // var inputText = document.getElementById("Text_box").value;
-
   var innerHTML = document.getElementById("Text_box").value;
   // var innerHTML = inputText.innerHTML;
   var index = innerHTML.indexOf(text);
   if (index >= 0) { 
-  //  innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
-  innerHTML = innerHTML.substring(0,index) + "<span class='highlight popup' onmouseover='popup_function()'><span class='popuptext' id='pop-up'>This</span>" + innerHTML.substring(index,index+text.length) + "</span></span>" + innerHTML.substring(index + text.length);
-  //  inputText.innerHTML = innerHTML;
+
+  innerHTML = innerHTML.substring(0,index) + "<span class='highlight popup' onclick='popup_function()'><span class='popuptext' id='pop-up'>This</span>" + innerHTML.substring(index,index+text.length) + "</span></span>" + innerHTML.substring(index + text.length);
+
   }
-
-  // document.getElementById("Text_box").innerHTML = innerHTML;
-
   
   document.getElementById("Text_display").innerHTML = innerHTML;
-
-
 
   edit_enable();
 }
