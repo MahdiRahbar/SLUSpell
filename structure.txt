@@ -10,9 +10,12 @@ Spell_Checker
 │   │   ├── auth/
 │   │   │   ├── login.html
 │   │   └   └── register.html
-│   └── static/
-│		├── style.css
-│       └── script.js
+│   ├── static/
+│	│ 	├── style.css
+│   │   └── script.js
+│   └── apps/
+│		├── spellchecker.py
+│       └── preprocess.py
 ├── tests/
 │   ├── conftest.py
 │   ├── data.sql
