@@ -54,8 +54,9 @@ function highlight(text) {
   // var innerHTML = inputText.innerHTML;
   var index = innerHTML.indexOf(text);
   if (index >= 0) { 
+
   innerHTML = innerHTML.substring(0,index) + "<span class='highlight popup' onclick='popup_function()'><span class='popuptext' id='pop-up'>This</span>" + innerHTML.substring(index,index+text.length) + "</span></span>" + innerHTML.substring(index + text.length);
-  //  inputText.innerHTML = innerHTML;
+
   }
   
   document.getElementById("Text_display").innerHTML = innerHTML;

@@ -433,8 +433,8 @@ label.radio .emot .mouth.sad {
   /* The actual popup (appears on top) */
   .popup .popuptext {
 	visibility: hidden;
-	width: 160px;
-	background-color: rgb(153, 153, 153);
+	width: 80px;
+	background-color: #5892fc;
 	color: #fff;
 	text-align: center;
 	border-radius: 6px;
@@ -443,7 +443,7 @@ label.radio .emot .mouth.sad {
 	z-index: 1;
 	bottom: 125%;
 	left: 50%;
-	margin-left: -80px;
+	margin-left: -40px;
   }
   
   /* Popup arrow */
