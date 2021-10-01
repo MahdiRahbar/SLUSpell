@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>The awesome Spell Checker!</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="../static/style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+
+<script src="{{ url_for('static', filename='../static/async.js') }}"></script>
 
 </head>
 <body>
@@ -45,68 +46,54 @@
   </div>
   <div class="slider-ctr">
     <div class="slider">
-      <form class="slider-form slider-one">
+      <form class="slider-form slider-one" method="POST">
         
-     <!--   
-       
-        <label class="input">
-          <input type="text" class="name" placeholder="Please enter your email">
-        </label>
-      -->
 
 
       <div class="form-group" style="justify-content: center;" >
+        
         <label for="Language_Selection"><h2>Language</h2></label>
         <select class="form-control" id="Language_Selection" style="width: 100%;" form="input_text_form" name='language_selector'>
-          <option selected value>English</option>
-          <option disabled value>Spanish</option>
+          <option selected value="en">English</option>
+          <option disabled value="es">Spanish</option>
           <option disabled >More coming soon!</option>
 
         </select>
+        
       </div>
 
         <button class="first next">Next Step</button>
       </form>
-      <form class="slider-form slider-two">
+      <form class="slider-form slider-two" method="POST">
 
         <div class="form-group" style="justify-content: center;" >
-          <label for="Language_Selection"><h2>How Formal?</h2></label>
-          <select class="form-control" id="Language_Selection" style="width: 100%;" form="input_text_form" name='formality_selector'>
-            <option selected value>Formal</option>
-            <option value>Informal</option>  
-          </select>
+         
+            <label for="Language_Selection"><h2>How Formal?</h2></label>
+            <select class="form-control" id="Formality_Selection" style="width: 100%;" form="input_text_form" name='formality_selector'>
+              <option selected value="formal">Formal</option>
+              <option value="Informal">Informal</option>  
+            </select>
+        
         </div>
 
         <button class="second next">Next Step</button>
       </form>
-      <!-- <div class="slider-form slider-three">
-        <h2>Hello, <span class="yourname"></span></h2>
-        <h3>Thank you for your input!
-					</h3>
-        <a class="reset" href="https://codepen.io/balapa/pen/XbXVRg" target="_blank">Reset</a>
-      </div> -->
 
       <div class="slider-form slider-three">
-        {% block textInput %}
           <div id="form-group">
-            <form action="/" id="input_text_form" method="POST">  
+            <form  id="input_text_form" method="POST">   
               <label for="Text_box"><h2>Enter your text here! :)</h2></label>
               <textarea class="form-control" id="Text_box" name='input_text' rows="3" style="width: 100%; margin-bottom: 5%;" placeholder="Enter your text here..." form="input_text_form"></textarea>
                     
-              <!-- <a class="reset btn btn-primary disabled" id="edit_btn"  onclick="spell_check_enable()" href="#" >Edit</a>   -->
-              <!--- <a class="reset btn btn-primary" id="spell_check_btn" onclick="highlight('this')" href="#" >Check!</a> -->  <!---    target="_blank"    -->
-              <input type="submit" class="btn btn-primary" id="spell_check_btn"  onclick="highlight('this')" name="submit" value="Check Spelling!" form="input_text_form"></input>
-            </form>
+              <input type="submit" onclick="async()" class="btn btn-primary" id="spell_check_btn"  name="submit" value="Check Spelling!" form="input_text_form"></input>
+            </form>  
           </div>
-        {% endblock textInput %}
 
-        {{ checked_text|safe }}
-          <!-- <div style="margin-top: 5%;min-height: 150%;border-width: 0ex; border: solid; border-color: rgba(0, 88, 160, 0.35); padding: 1em; width: 100%;border-width: 2px;">
-            <p id="Text_display" ></p>
-          </div> -->
+        
+        <br>
+            <span id="Text_display" ></span>
 
-        </div>
-
+        </div>        
     </div>
   </div>
 
@@ -114,13 +101,11 @@
 
 </div>
 
+
 <!-- partial -->
 
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src="../static/script.js"></script>
-<script src='https://codepen.io/balapa/pen/c58fffe58d661ae3d4b168a43eb3b2b8.js'></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
