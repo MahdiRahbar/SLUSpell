@@ -26,27 +26,15 @@ $secondButton.on("click", function(e){
   e.preventDefault();
 });
 
-// copy
-balapaCop("Step by Step Form", "#999");
-/////
-////
-/////
+/////------------------------------------------------------------------------
 
+function popup_function() { // field_ID
+  document.getElementById("pop-up").classList.add('show');
+//   popup.addEventListener("pop-up", function( event ) { 
+//     document.getElementById("pop-up").classList.remove('show');
+// });
+};
 
-function edit_enable(){
-  
-  // document.getElementById("spell_check_btn").classList.add('disabled');
-  // document.getElementById("edit_btn").classList.remove('disabled');
-}
-function spell_check_enable(){
-  // document.getElementById("edit_btn").classList.add('disabled');
-  // document.getElementById("spell_check_btn").classList.remove('disabled');
-}
-
-function popup_function() {
-  var popup = document.getElementById("pop-up");
-  popup.classList.toggle("show");
-}
 
 
 function highlight(text) {
@@ -55,7 +43,7 @@ function highlight(text) {
   var index = innerHTML.indexOf(text);
   if (index >= 0) { 
 
-  innerHTML = innerHTML.substring(0,index) + "<span class='highlight popup' onclick='popup_function()'><span class='popuptext' id='pop-up'>This</span>" + innerHTML.substring(index,index+text.length) + "</span></span>" + innerHTML.substring(index + text.length);
+    innerHTML = innerHTML.substring(0,index) + "<span class='highlight popup' onclick='popup_function()'><span class='popuptext' id='pop-up'>This</span>" + innerHTML.substring(index,index+text.length) + "</span></span>" + innerHTML.substring(index + text.length);
 
   }
   

@@ -47,8 +47,9 @@ class WordCheck:
         temp_list = []
         p = re.compile("\w+") 
         for m in p.finditer(text):
-            temp_list.append([m.group(0),"",m.start(), m.end(),False])
-        return temp_list
+            # word, index, index, Correction Flag, ID for frontend
+            temp_list.append([m.group(0),"",m.start(), m.end(),False, 0])
+        return temp_list  
     
     def correction(self, word): 
         "Most probable spelling correction for word."
@@ -78,18 +79,15 @@ class WordCheck:
 
     def run_checker(self):
         for i in range(len(self.word_list)):
-            print()
-            print(self.word_list[i][0])
-            print()
             temp_word = self.correction(self.word_list[i][0],)            
             if self.word_list[i][0] != temp_word:
                 self.word_list[i][3] = True
                 self.word_list[i][1] = temp_word
-                self.word_list[i] = self.highliter(self.word_list[i]) # It has to contain the correct spelling
+                self.word_list[i] = self.highliter(self.word_list[i], i) # It has to contain the correct spelling
         
     
-    def highliter(self, word):
-        tagged_word = "<span class='highlight popup' onclick='popup_function()'><span class='popuptext' id='pop-up'>{}</span>{}</span>".format(word[1], word[0])
+    def highliter(self, word, index):
+        tagged_word = "<a>" + "<span class='highlight popup' id='higlight' onclick='popup_function()'><span class='popuptext' id='pop-up'>{}</span>{}</span>".format(word[1], word[0]) + "</a>"
         # The first span keeps the popup and has to keep the correct word
         word[0] = tagged_word
         return word            
@@ -120,7 +118,7 @@ class WordCheck:
         output = ""
         for i in range(len(self.word_list)):            
             output += self.word_list[i][0] + " "
-        return output
+        return output  # , self.word_list[:][-1]
 
 
 
