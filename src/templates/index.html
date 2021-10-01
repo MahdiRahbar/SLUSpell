@@ -92,7 +92,29 @@
         
         <br>
             <span id="Text_display" ></span>
+<!--Word counter system below-->            
+ 
+            <p>
+              Word Count:
+              <span id="show">0</span>
+            </p>
 
+
+            <script>
+              document
+                .querySelector("#Text_box")
+                .addEventListener("keyup", function countWord() {
+                  let res = [];
+                  let str = this.value.replace(/[\t\n\r\.\?\!]/gm, " ").split(" ");
+                  str.map((s) => {
+                    let trimStr = s.trim();
+                    if (trimStr.length > 0) {
+                      res.push(trimStr);
+                    }
+                  });
+                  document.querySelector("#show").innerText = res.length;
+                });
+            </script>      
         </div>        
     </div>
   </div>
