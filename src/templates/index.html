@@ -88,6 +88,9 @@
               <input type="submit" onclick="async()" class="btn btn-primary" id="spell_check_btn"  name="submit" value="Check Spelling!" form="input_text_form"></input>
             </form>  
           </div>
+          <div id="typing_alert" class="alert alert-primary" role="alert" style="display: none">
+            Typing
+          </div>
 
         
         <br>
@@ -114,7 +117,19 @@
                   });
                   document.querySelector("#word_count").innerText = res.length;
                 });
-            </script>      
+            </script>  
+            <script>
+  
+
+              $("#Text_box").focus(function() {
+                  document.getElementById("typing_alert").style.display = "inline";
+                });
+              
+              $("#Text_box").focusout(function() {
+                  document.getElementById("typing_alert").style.display = "none";
+                });
+              
+              </script>    
         </div>        
     </div>
   </div>
