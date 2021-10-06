@@ -9,7 +9,16 @@
 
 <script src="{{ url_for('static', filename='../static/async.js') }}"></script>
 
+<form>
+                
+  <input type ="button"
+  value = "Back"
+  onclick="history.back()"
+
+</form> 
+
 </head>
+
 <body>
 <!-- partial:index.partial.html -->
 <div  style=" padding: .5%;">
@@ -21,9 +30,17 @@
   <a href="{{ url_for('register') }}" type="button" class="btn btn-primary "  aria-pressed="false"  style="float: right;margin: .2%;">
     Register
   </a>
+  <form>
+                
+    <input type ="button"
+    value = "Back"
+    onclick="history.back()"
 
+  </form> 
 </div>
+
 <div class="container slider-one-active">
+
   <div class="steps">
     <div class="step step-one">
       <div class="liner"></div>
@@ -36,8 +53,21 @@
     <div class="step step-three">
       <div class="liner"></div>
       <span>Text</span>
-    </div>
+   </div>
+   
+   <form>
+                
+    <input type ="button"
+    value = "Back"
+    onclick="history.back()"
+
+  </form> 
+
+
   </div>
+
+
+
   <div class="line">
     <div class="dot-move"></div>
     <div class="dot zero"></div>
@@ -115,7 +145,14 @@
                   document.querySelector("#word_count").innerText = res.length;
                 });
             </script>      
-        </div>        
+        </div>    
+        <form>
+          
+          <input type ="button"
+          value = "Back"
+          onclick="history.back()"
+
+        </form>   
     </div>
   </div>
 
