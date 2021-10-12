@@ -28,7 +28,7 @@ $secondButton.on("click", function(e){
 
 /////------------------------------------------------------------------------
 
-function popup_function() { // field_ID
+function popup_function(input_id) { // field_ID
   document.getElementById("pop-up").classList.add('show');
 //   popup.addEventListener("pop-up", function( event ) { 
 //     document.getElementById("pop-up").classList.remove('show');
@@ -51,6 +51,24 @@ function highlight(text) {
 
   edit_enable();
 }
+
+/////------------------------------------------------------------------------
+
+
+document
+.querySelector("#Text_box")
+.addEventListener("keyup", function countWord() {
+  let res = [];
+  let str = this.value.replace(/[\t\n\r\.\?\!]/gm, " ").split(" ");
+  str.map((s) => {
+    let trimStr = s.trim();
+    if (trimStr.length > 0) {
+      res.push(trimStr);
+    }
+  });
+  document.querySelector("#word_count").innerText = res.length;
+});
+
 
 /////------------------------------------------------------------------------
 //// typingindicator
