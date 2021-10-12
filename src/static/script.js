@@ -52,6 +52,27 @@ function highlight(text) {
   edit_enable();
 }
 
+/////------------------------------------------------------------------------
+//// typingindicator
 
+let timer,
+		timeoutVal = 1000;
 
+const label = document.getElementById('indicator');
+const typing = document.getElementById('Text_box');
+
+typing.addEventListener('keypress', handleKeyPress);
+typing.addEventListener('keyup', handleKeyUp);
+
+function handleKeyPress(e) {
+	window.clearTimeout(timer);
+  label.innerHTML = '<p class="typing">Typing<span>.</span><span>.</span><span>.</span></p>';
+}
+
+function handleKeyUp(e) {
+	window.clearTimeout(timer);
+	timer = window.setTimeout(() => {
+  	label.innerHTML = '<p class="typing">Not Typing<span>.</span><span>.</span><span>.</span></p>';
+  }, timeoutVal);
+}
 

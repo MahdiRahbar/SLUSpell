@@ -9,7 +9,10 @@
 
 <script src="{{ url_for('static', filename='../static/async.js') }}"></script>
 
+
+
 </head>
+
 <body>
 <!-- partial:index.partial.html -->
 <div  style=" padding: .5%;">
@@ -23,7 +26,9 @@
   </a>
 
 </div>
+
 <div class="container slider-one-active">
+
   <div class="steps">
     <div class="step step-one">
       <div class="liner"></div>
@@ -36,8 +41,14 @@
     <div class="step step-three">
       <div class="liner"></div>
       <span>Text</span>
-    </div>
+   </div>
+  
+
+
   </div>
+
+
+
   <div class="line">
     <div class="dot-move"></div>
     <div class="dot zero"></div>
@@ -81,15 +92,13 @@
 
       <div class="slider-form slider-three">
           <div id="form-group">
-            <form  id="input_text_form" method="POST">   
-              <label for="Text_box"><h2>Enter your text here! :)</h2></label>
+            <form  id="input_text_form" method="POST"> 
               <textarea class="form-control" id="Text_box" name='input_text' rows="3" style="width: 100%; margin-bottom: 5%;" placeholder="Enter your text here..." form="input_text_form"></textarea>
-                    
-              <input type="submit" onclick="async()" class="btn btn-primary" id="spell_check_btn"  name="submit" value="Check Spelling!" form="input_text_form"></input>
+              <div id="indicator"></div> 
+              <input type="submit" onclick="async()" class="btn btn-primary" id="spell_check_btn"  name="submit" value="Check Spelling!" form="input_text_form"></input> 
             </form>  
-          </div>
+          </div>  
 
-        
         <br>
             <span id="Text_display" ></span>
 <!--Word counter system below-->            
@@ -114,8 +123,10 @@
                   });
                   document.querySelector("#word_count").innerText = res.length;
                 });
-            </script>      
-        </div>        
+            </script> 
+
+          
+      </div>    
     </div>
   </div>
 

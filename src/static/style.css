@@ -475,3 +475,47 @@ label.radio .emot .mouth.sad {
 	from {opacity: 0;}
 	to {opacity:1 ;}
   }
+
+  /* typing indicator blinking  */
+  * {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+  }
+  
+  body {
+	padding: 30px;
+	text-align: right;
+  }
+  
+  .typing {
+	font-size: 20px;
+  }
+  
+  .typing span {
+	font-size: 30px;
+	animation-name: blink;
+	animation-duration: 1.4s;
+	animation-iteration-count: infinite;
+	animation-fill-mode: both;
+  }
+  
+  .typing span:nth-child(2) {
+	animation-delay: .2s;
+  }
+  
+  .typing span:nth-child(3) {
+	animation-delay: .4s;
+  }
+  
+  @keyframes blink {
+	0% {
+	  opacity: .2;
+	}
+	20% {
+	  opacity: 1;
+	}
+	100% {
+	  opacity: .2;
+	}
+  }
