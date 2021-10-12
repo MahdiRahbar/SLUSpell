@@ -5,6 +5,7 @@
 # License: -
 
 
+import pickle as pkl
 import re 
 from collections import Counter 
 
@@ -27,12 +28,36 @@ class Dictionary:
         return self.word_dict[given_word]/ sum(self.word_dict.values())
 
 
+
 class WordCheck:
-    def __init__(self, text, path= "apps/assets/dict/en-common.txt"):
-        self.dict_obj = Dictionary(path)
-        self.word_dict = self.dict_obj.read_dict_file()
+    def __init__(self, text,language, formality):
+        self.formality = formality
+        self.language = language  
+        dictionary_path = "apps/assets/dict/{}-common.txt".format(self.language)
+        self.dict_obj = Dictionary(dictionary_path)
+        self.alt_dict_path = 'apps/assets/dict/twitter_sentiment140_dict.pkl'
+
+        self.mis_counter = 0
+        self.word_dict = self.get_dict()
+        self.alt_dict = self.ext_dict()
         self.word_list = self.words(text)
+
     
+    def get_dict(self):
+        word_dict = self.dict_obj.read_dict_file()
+        return word_dict
+
+    def ext_dict(self)->dict:        
+        if self.formality == 'informal' :
+            with open(self.alt_dict_path, 'rb') as f:
+                alt_dict = pkl.load(f)
+        else: 
+            alt_dict = self.word_dict
+
+    def cal_proba_alt(self, given_word):
+        return self.alt_dict[given_word]/ sum(self.alt_dict.values())
+
+
     def words(self, text):
         '''
         Return a list of words + their starting and ending index
@@ -84,10 +109,13 @@ class WordCheck:
                 self.word_list[i][3] = True
                 self.word_list[i][1] = temp_word
                 self.word_list[i] = self.highliter(self.word_list[i], i) # It has to contain the correct spelling
+                self.mis_counter += 1 
+                self.word_list[i][-1] = self.mis_counter
         
     
     def highliter(self, word, index):
-        tagged_word = "<a>" + "<span class='highlight popup' id='higlight' onclick='popup_function()'><span class='popuptext' id='pop-up'>{}</span>{}</span>".format(word[1], word[0]) + "</a>"
+        tagged_word = "<a>" + "<span class='highlight popup highlight{} popup{}' id='higlight' onclick='popup_function({})'>\
+                        <span class='popuptext' id='pop-up'>{}</span>{}</span>".format(word[-1] ,word[-1] ,word[-1], word[1], word[0]) + "</a>"
         # The first span keeps the popup and has to keep the correct word
         word[0] = tagged_word
         return word            
@@ -129,7 +157,7 @@ class SpellChecker:
         self.formality_selector = formality_selector
 
     def call(self):
-        word_check = WordCheck(self.input_text)
+        word_check = WordCheck(self.input_text,  self.language_selector, self.formality_selector)
         output_str = word_check.call()
         return output_str
 
