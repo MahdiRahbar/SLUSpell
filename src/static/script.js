@@ -28,13 +28,32 @@ $secondButton.on("click", function(e){
 
 /////------------------------------------------------------------------------
 
-function popup_function(input_id) { // field_ID
-  document.getElementById("pop-up").classList.add('show');
-//   popup.addEventListener("pop-up", function( event ) { 
-//     document.getElementById("pop-up").classList.remove('show');
-// });
+function show_popup(input_id, correct_word) { // field_ID
+  let new_id = "pop-up" + input_id;
+  document.getElementById(new_id).classList.remove('hide');
+  document.getElementById(new_id).classList.add('show');
+  setTimeout('',2000);
+  
 };
 
+function hide_popup(input_id, correct_word){
+  let new_id = "pop-up" + input_id;
+  setTimeout(function(){
+    document.getElementById(new_id).classList.remove('show');
+    document.getElementById(new_id).classList.add('hide');
+  }  
+  ,3000);
+};
+
+// Add a clickout listener
+
+
+// Remove a clickout listener
+
+
+// function() {
+//   statement2();
+// }
 
 
 function highlight(text) {

@@ -108,14 +108,16 @@ class WordCheck:
             if self.word_list[i][0] != temp_word:
                 self.word_list[i][3] = True
                 self.word_list[i][1] = temp_word
-                self.word_list[i] = self.highliter(self.word_list[i], i) # It has to contain the correct spelling
                 self.mis_counter += 1 
                 self.word_list[i][-1] = self.mis_counter
+                self.word_list[i] = self.highliter(self.word_list[i], i) # It has to contain the correct spelling
+
         
     
     def highliter(self, word, index):
-        tagged_word = "<a>" + "<span class='highlight popup highlight{} popup{}' id='higlight' onclick='popup_function({})'>\
-                        <span class='popuptext' id='pop-up'>{}</span>{}</span>".format(word[-1] ,word[-1] ,word[-1], word[1], word[0]) + "</a>"
+        tagged_word =  "<span class='highlight popup highlight{} popup{}' id='higlight' onmouseover='show_popup({},\"{}\")' onmouseout='hide_popup({},\"{}\")'>".format(word[-1], word[-1], word[-1], word[1] ,word[-1], word[1]) + \
+                        "<a><span class='popuptext' id='pop-up{}'>{}</span></a>{}</span>".format(word[-1], word[1], word[0]) 
+                        
         # The first span keeps the popup and has to keep the correct word
         word[0] = tagged_word
         return word            
