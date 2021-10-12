@@ -37,7 +37,7 @@ class WordCheck:
         self.dict_obj = Dictionary(dictionary_path)
         self.alt_dict_path = 'apps/assets/dict/twitter_sentiment140_dict.pkl'
 
-        self.counter = 0
+        self.mis_counter = 0
         self.word_dict = self.get_dict()
         self.alt_dict = self.ext_dict()
         self.word_list = self.words(text)
@@ -109,11 +109,13 @@ class WordCheck:
                 self.word_list[i][3] = True
                 self.word_list[i][1] = temp_word
                 self.word_list[i] = self.highliter(self.word_list[i], i) # It has to contain the correct spelling
-                self.counter += 1 
+                self.mis_counter += 1 
+                self.word_list[i][-1] = self.mis_counter
         
     
     def highliter(self, word, index):
-        tagged_word = "<a>" + "<span class='highlight popup' id='higlight' onclick='popup_function()'><span class='popuptext' id='pop-up'>{}</span>{}</span>".format(word[1], word[0]) + "</a>"
+        tagged_word = "<a>" + "<span class='highlight popup highlight{} popup{}' id='higlight' onclick='popup_function({})'>\
+                        <span class='popuptext' id='pop-up'>{}</span>{}</span>".format(word[-1] ,word[-1] ,word[-1], word[1], word[0]) + "</a>"
         # The first span keeps the popup and has to keep the correct word
         word[0] = tagged_word
         return word            
