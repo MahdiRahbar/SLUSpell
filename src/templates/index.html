@@ -6,17 +6,12 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="../static/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
-
 <script src="{{ url_for('static', filename='../static/async.js') }}"></script>
-
-
-
 </head>
 
 <body>
 <!-- partial:index.partial.html -->
 <div  style=" padding: .5%;">
-
   <img src="../static/img/logo.png" style="width: 5%; height: 5%; float: left; position: relative; margin: .2%;">
   <a href="{{ url_for('login') }}" type="button" class="btn btn-primary"   aria-pressed="false"  style="float: right;margin: .2%;">
     Login
@@ -24,11 +19,9 @@
   <a href="{{ url_for('register') }}" type="button" class="btn btn-primary "  aria-pressed="false"  style="float: right;margin: .2%;">
     Register
   </a>
-
 </div>
 
 <div class="container slider-one-active">
-
   <div class="steps">
     <div class="step step-one">
       <div class="liner"></div>
@@ -42,12 +35,7 @@
       <div class="liner"></div>
       <span>Text</span>
    </div>
-  
-
-
   </div>
-
-
 
   <div class="line">
     <div class="dot-move"></div>
@@ -58,35 +46,24 @@
   <div class="slider-ctr">
     <div class="slider">
       <form class="slider-form slider-one" method="POST">
-        
-
-
       <div class="form-group" style="justify-content: center;" >
-        
         <label for="Language_Selection"><h2>Language</h2></label>
         <select class="form-control" id="Language_Selection" style="width: 100%;" form="input_text_form" name='language_selector'>
           <option selected value="en">English</option>
           <option disabled value="es">Spanish</option>
           <option disabled >More coming soon!</option>
-
         </select>
-        
       </div>
-
         <button class="first next">Next Step</button>
       </form>
       <form class="slider-form slider-two" method="POST">
-
-        <div class="form-group" style="justify-content: center;" >
-         
+        <div class="form-group" style="justify-content: center;" >         
             <label for="Language_Selection"><h2>How Formal?</h2></label>
             <select class="form-control" id="Formality_Selection" style="width: 100%;" form="input_text_form" name='formality_selector'>
               <option selected value="formal">Formal</option>
-              <option value="Informal">Informal</option>  
-            </select>
-        
+              <option value="informal">Informal</option>  
+            </select>        
         </div>
-
         <button class="second next">Next Step</button>
       </form>
 
@@ -98,9 +75,8 @@
               <input type="submit" onclick="async()" class="btn btn-primary" id="spell_check_btn"  name="submit" value="Check Spelling!" form="input_text_form"></input> 
             </form>  
           </div>  
-
         <br>
-            <span id="Text_display" ></span>
+          <span id="Text_display" ></span>
 <!--Word counter system below-->            
  
             <p>
