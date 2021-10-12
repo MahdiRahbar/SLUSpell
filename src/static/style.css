@@ -464,6 +464,11 @@ label.radio .emot .mouth.sad {
 	-webkit-animation: fadeIn 1s;
 	animation: fadeIn 1s
   }
+  .popup .hide {
+	visibility: hidden;
+	-webkit-animation: fadeOut 1s;
+	animation: fadeOut 1s
+  }
   
   /* Add animation (fade in the popup) */
   @-webkit-keyframes fadeIn {
@@ -476,6 +481,16 @@ label.radio .emot .mouth.sad {
 	to {opacity:1 ;}
   }
 
+    /* Add animation (fade out the popup) */
+  @-webkit-keyframes fadeOut {
+		from {opacity: 1;}
+		to {opacity: 0;}
+	  }
+
+  @keyframes fadeOut {
+		from {opacity: 1;}
+		to {opacity:0 ;}
+	  }
   /* typing indicator blinking  */
   * {
 	margin: 0;
