@@ -55,7 +55,10 @@ class WordCheck:
             alt_dict = self.word_dict
 
     def cal_proba_alt(self, given_word):
-        return self.alt_dict[given_word]/ sum(self.alt_dict.values())
+        if given_word in self.alt_dict.keys():
+            return self.alt_dict[given_word]/ sum(self.alt_dict.values())
+        else:
+            return self.word_dict[given_word]/ sum(self.word_dict.values())
 
 
     def words(self, text):
@@ -116,7 +119,7 @@ class WordCheck:
     
     def highliter(self, word, index):
         tagged_word =  "<span class='highlight popup highlight{} popup{}' id='higlight' onmouseover='show_popup({},\"{}\")' onmouseout='hide_popup({},\"{}\")'>".format(word[-1], word[-1], word[-1], word[1] ,word[-1], word[1]) + \
-                        "<a><span class='popuptext' id='pop-up{}'>{}</span></a>{}</span>".format(word[-1], word[1], word[0]) 
+                        "<a onclick='async_correction({})'><span class='popuptext' id='pop-up{}'>{}</span></a>{}</span>".format(word[-1],word[-1], word[1], word[0]) 
                         
         # The first span keeps the popup and has to keep the correct word
         word[0] = tagged_word
@@ -149,6 +152,16 @@ class WordCheck:
         for i in range(len(self.word_list)):            
             output += self.word_list[i][0] + " "
         return output  # , self.word_list[:][-1]
+    
+    def call_corrector(self, id):
+        output = ""
+        for i in range(len(self.word_list)):
+            if self.word_list[i][-1] == id: 
+                self.word_list[i][0] = self.word_list[i][1]
+        for i in range(len(self.word_list)):            
+            output += self.word_list[i][0] + " "
+        return output
+        
 
 
 
@@ -157,11 +170,15 @@ class SpellChecker:
         self.input_text = input_text
         self.language_selector = language_selector
         self.formality_selector = formality_selector
+        self.word_check = WordCheck(self.input_text,  self.language_selector, self.formality_selector)
 
     def call(self):
-        word_check = WordCheck(self.input_text,  self.language_selector, self.formality_selector)
-        output_str = word_check.call()
+        output_str = self.word_check.call()
         return output_str
+
+    def call_corrector(self, id):
+        return self.word_check.call_corrector(id)
+        
 
 
 

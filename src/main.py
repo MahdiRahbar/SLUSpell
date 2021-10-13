@@ -30,8 +30,26 @@ def check():
             formality_selector = data['formality_selector'] 
             print(data, input_text)
             if input_text and language_selector and formality_selector:
+                global spell_checker # Global Variable 
                 spell_checker = SpellChecker(input_text, language_selector, formality_selector)
                 spellChecked_text = spell_checker.call()
+                return jsonify({'checked_text' : spellChecked_text })
+            return jsonify({'error' : "Something went wrong!" })        
+
+    except Exception as e:
+        logging.error(traceback.format_exc())
+        error_message = 'Something went wrong! Please try latter!'
+        return render_template('index.html', checked_text = error_message)
+
+@app.route('/correct', methods =['GET','POST'])
+def correct():
+    try:
+        if request.method == 'POST':      
+            data = request.get_json(force=True)
+            element_id = data['element_id'] 
+            if element_id:
+                spellChecked_text = spell_checker.call_corrector(element_id)
+                print(spellChecked_text)
                 return jsonify({'checked_text' : spellChecked_text })
             return jsonify({'error' : "Something went wrong!" })        
 

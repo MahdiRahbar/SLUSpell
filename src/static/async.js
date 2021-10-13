@@ -23,3 +23,24 @@ function async(){
 
     event.preventDefault();
 };
+
+
+function async_correction(input_id){
+    var element_id = input_id;    
+
+      var xml2 = new XMLHttpRequest();
+      xml2.open("POST", "/correct", true);
+      xml2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xml2.onload = function(){
+          var dataReply = JSON.parse(xml2.responseText) ;// checked_text
+          console.log(dataReply.checked_text);
+          document.getElementById("Text_display").innerHTML = dataReply.checked_text;
+
+  };
+  dataSend = JSON.stringify({
+      'element_id' : element_id,
+  });
+  xml2.send(dataSend)
+
+  event.preventDefault();
+};
