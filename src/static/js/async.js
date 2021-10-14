@@ -1,6 +1,6 @@
 
 function async(){
-      var textData = document.getElementById("Text_box").value;
+      var textData = document.getElementById("Text_box").textContent;
       var languageSelector = document.getElementById("Language_Selection").value;
       var formalitySelector = document.getElementById("Formality_Selection").value;
       

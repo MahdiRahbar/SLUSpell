@@ -1,31 +1,3 @@
-var $firstButton = $(".first"),
-  $secondButton = $(".second"),
-  $input = $("input"),
-  $name = $(".name"),
-  $more = $(".more"),
-  $yourname = $(".yourname"),
-  $reset = $(".reset"),
-  $ctr = $(".container");
-
-$firstButton.on("click", function(e){
-  $(this).text("Saving...").delay(900).queue(function(){
-    $ctr.addClass("center slider-two-active").removeClass("full slider-one-active");
-  });
-  e.preventDefault();
-});
-
-$secondButton.on("click", function(e){
-  $(this).text("Saving...").delay(900).queue(function(){
-    $ctr.addClass("full slider-three-active").removeClass("center slider-two-active slider-one-active");
-    $name = $name.val();
-    if($name == "") {
-      $yourname.html("Anonymous!");
-    }
-    else { $yourname.html($name+"!"); }
-  });
-  e.preventDefault();
-});
-
 /////------------------------------------------------------------------------
 
 function show_popup(input_id, correct_word) { // field_ID
@@ -45,15 +17,7 @@ function hide_popup(input_id, correct_word){
   ,3000);
 };
 
-// Add a clickout listener
-
-
-// Remove a clickout listener
-
-
-// function() {
-//   statement2();
-// }
+/////------------------------------------------------------------------------
 
 
 function highlight(text) {
@@ -109,7 +73,7 @@ function handleKeyPress(e) {
 function handleKeyUp(e) {
 	window.clearTimeout(timer);
 	timer = window.setTimeout(() => {
-  	label.innerHTML = '<p class="typing">Not Typing<span>.</span><span>.</span><span>.</span></p>';
+  	label.innerHTML = ''; //'<p class="typing"><span>.</span><span>.</span><span>.</span></p>';
   }, timeoutVal);
 }
 
