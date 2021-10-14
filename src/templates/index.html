@@ -61,13 +61,12 @@
         	<!-- Page Content  -->
 			<div id="content" class="container p-4 p-md-5 pt-5">
 				<div class="row">
-					<div id="Text_box" name='input_text' class="col-md-8 p-4 p-md-5 pt-5" contenteditable="true" ><p textPlaceholder="Type your text here..." ><br></p></div>
+					<div id="Text_box" name='input_text' class="col-md-8 p-4 p-md-5 pt-5" contenteditable="true" textPlaceholder="Type your text here..." ></div>
 					
 					<div class="lead col-4 p-4 p-md-5 pt-5" >
 						<div class="h-75" id="Text_display" textPlaceholder="Looks awesome! :)"></div>
 								<p id="indicator"></p> 
 							<p class="" style="position:absolute; bottom:0;" >
-								
 								<!-- <p class="fixed " style="bottom: 0%;" >Word Count: <span id="word_count">0</span></p>							 -->
 							</p>
 						
@@ -79,7 +78,9 @@
 
 		<script>
 			// setInterval(function(){loadXMLDoc();},5000);
+			function listen(){
 			setInterval(async,5000);
+		};
 		</script>
 
 

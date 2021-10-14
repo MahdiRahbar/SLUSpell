@@ -72,6 +72,7 @@ function handleKeyPress(e) {
 
 function handleKeyUp(e) {
 	window.clearTimeout(timer);
+  listen()
 	timer = window.setTimeout(() => {
   	label.innerHTML = ''; //'<p class="typing"><span>.</span><span>.</span><span>.</span></p>';
   }, timeoutVal);
