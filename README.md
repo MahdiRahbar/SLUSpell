@@ -18,8 +18,8 @@ or the following command on Linux or Mac OS:
 ```Python
 pip3 install -r requirements.txt
 ```
-### How to Run?
-Go to the */src* directory and run the following command on Windows OS: 
+### Quick Start
+To run the application first, go to the */src* directory and run the following command on Windows OS: 
 ```Python
 python main.py
 ```
@@ -27,3 +27,9 @@ or the below command on Linux or Mac OS:
 ```Python 
 python3 main.py
 ```
+## Todo 
+1. Using context based spell checker. 
+2. Using more accurate dictionaries.
+3. Adding registraiton system to save client's work. 
+## License
+SLUSpell is licensed under the terms of GNU General Public License v3. This library can be used for both academic and commercial purposes. For more information, check out the [LICENSE](https://github.com/MahdiRahbar/Spell_Checker/blob/main/LICENSE.txt) file.
