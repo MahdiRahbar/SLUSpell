@@ -55,7 +55,11 @@ document
 
 /////------------------------------------------------------------------------
 //// typingindicator
+function call_async(){
+  async();
+}
 
+var TYPE_FLAG_BOOL = 0 ; 
 let timer,
 		timeoutVal = 1000;
 
@@ -67,14 +71,22 @@ typing.addEventListener('keyup', handleKeyUp);
 
 function handleKeyPress(e) {
 	window.clearTimeout(timer);
+  if (TYPE_FLAG_BOOL ==1){
+    TYPE_FLAG_BOOL =0 ;
+  }
   label.innerHTML = '<p class="typing">Typing<span>.</span><span>.</span><span>.</span></p>';
 }
 
 function handleKeyUp(e) {
 	window.clearTimeout(timer);
-  listen()
+
+  
 	timer = window.setTimeout(() => {
   	label.innerHTML = ''; //'<p class="typing"><span>.</span><span>.</span><span>.</span></p>';
+    if (TYPE_FLAG_BOOL ==0){
+      TYPE_FLAG_BOOL =1 ;
+      call_async();
+    }
   }, timeoutVal);
 }
 
