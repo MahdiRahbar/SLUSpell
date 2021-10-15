@@ -1,31 +1,3 @@
-var $firstButton = $(".first"),
-  $secondButton = $(".second"),
-  $input = $("input"),
-  $name = $(".name"),
-  $more = $(".more"),
-  $yourname = $(".yourname"),
-  $reset = $(".reset"),
-  $ctr = $(".container");
-
-$firstButton.on("click", function(e){
-  $(this).text("Saving...").delay(900).queue(function(){
-    $ctr.addClass("center slider-two-active").removeClass("full slider-one-active");
-  });
-  e.preventDefault();
-});
-
-$secondButton.on("click", function(e){
-  $(this).text("Saving...").delay(900).queue(function(){
-    $ctr.addClass("full slider-three-active").removeClass("center slider-two-active slider-one-active");
-    $name = $name.val();
-    if($name == "") {
-      $yourname.html("Anonymous!");
-    }
-    else { $yourname.html($name+"!"); }
-  });
-  e.preventDefault();
-});
-
 /////------------------------------------------------------------------------
 
 function show_popup(input_id, correct_word) { // field_ID
@@ -45,15 +17,7 @@ function hide_popup(input_id, correct_word){
   ,3000);
 };
 
-// Add a clickout listener
-
-
-// Remove a clickout listener
-
-
-// function() {
-//   statement2();
-// }
+/////------------------------------------------------------------------------
 
 
 function highlight(text) {
@@ -91,7 +55,11 @@ document
 
 /////------------------------------------------------------------------------
 //// typingindicator
+function call_async(){
+  async();
+}
 
+var TYPE_FLAG_BOOL = 0 ; 
 let timer,
 		timeoutVal = 1000;
 
@@ -103,13 +71,22 @@ typing.addEventListener('keyup', handleKeyUp);
 
 function handleKeyPress(e) {
 	window.clearTimeout(timer);
+  if (TYPE_FLAG_BOOL ==1){
+    TYPE_FLAG_BOOL =0 ;
+  }
   label.innerHTML = '<p class="typing">Typing<span>.</span><span>.</span><span>.</span></p>';
 }
 
 function handleKeyUp(e) {
 	window.clearTimeout(timer);
+
+  
 	timer = window.setTimeout(() => {
-  	label.innerHTML = '<p class="typing">Not Typing<span>.</span><span>.</span><span>.</span></p>';
+  	label.innerHTML = ''; //'<p class="typing"><span>.</span><span>.</span><span>.</span></p>';
+    if (TYPE_FLAG_BOOL ==0){
+      TYPE_FLAG_BOOL =1 ;
+      call_async();
+    }
   }, timeoutVal);
 }
 
