@@ -49,7 +49,7 @@ class Irish(Text):
                                      '-' + self.word_list[i][1:].lower()
             else: 
                 self.word_list[i] = self.word_list[i].lower()
-        return self.word_to_str() 
+        return self.word_list 
 
 class English(Text):
     def __init__(self):
