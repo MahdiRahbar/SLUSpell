@@ -4,9 +4,12 @@
 # Developers: Mahdi Rahabr
 # License: -
 
+import string
+
 
 
 class LangSpec:
+    PUNC = string.punctuation
     def __init__(self, lang):
         self.lang = lang 
 
@@ -23,8 +26,22 @@ class Text:
             self.word_list[i] = self.word_list[i].lower()
         return self.word_list
 
+    def check_punc(self, input_str):
+        word= str()
+        b_punc = str()
+        e_punc = str()
+        if word[0] in PUNC:
+            b_punc = word[0]
+            word.pop(0)
+        if word[-1] in PUNC:
+            b_punc = word[-1]
+            word.pop(-1)
+        return word, b_punc, e_punc
+
+
     def call(self):
         return self.to_lower()
+
     
 
 
