@@ -10,18 +10,33 @@ import string
 
 class LangSpec:
     PUNC = string.punctuation
-    def __init__(self, lang):
+    def __init__(self, input_text, lang):
         self.lang = lang 
+        self.input_text = input_text
+        self.textObj = None
+
+    def call_lang(self):
+        if self.lang('en'):
+            self.text = English(self.input_text)
+        elif self.lang('ga'):
+            self.text = Irish(self.input_text) 
+        return self.text
+
+    
+
 
 class Text:
     def __init__(self, input_text):
         self.input_text = input_text
         self.word_list = self.split_string()
+        self.string_chunks = []
 
     def split_string(self):
+        # 1
         return self.input_text.split(' ')
 
     def to_lower(self):
+        # 2
         for i in range(len(self.word_list)):
             self.word_list[i] = self.word_list[i].lower()
         return self.word_list
@@ -30,14 +45,28 @@ class Text:
         word= str()
         b_punc = str()
         e_punc = str()
-        if word[0] in PUNC:
+        if word[0] in PUNC & word[0]!='':
             b_punc = word[0]
             word.pop(0)
-        if word[-1] in PUNC:
+        if word[-1] in PUNC & word[0]!='':
             b_punc = word[-1]
             word.pop(-1)
         return word, b_punc, e_punc
 
+    def create_ds(self):
+        # 3
+        # p = re.compile("\w+")
+        for w in range(self.word_list):                   
+        # for m in p.finditer(text):
+            # word, index, index, Correction Flag, ID for frontend
+            # temp_list.append([m.group(0),"",m.start(), m.end(),False, 0])
+            word, b_punc, e_punc = check_punc(w)
+            if b_punc!= '':
+                self.string_chunks.append({'word':b_punc,'correct':b_punc, 'new_string':b_punc,'correction_flag':False, 'id':0})
+            self.string_chunks.append({'word':word,'correct':"", 'new_string':'','correction_flag':False, 'id':0})
+            if e_punc!= '':
+                self.string_chunks.append({'word':e_punc,'correct':e_punc, 'new_string':e_punc,'correction_flag':False, 'id':0})
+        return self.string_chunks
 
     def call(self):
         return self.to_lower()

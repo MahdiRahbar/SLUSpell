@@ -28,9 +28,7 @@ def check():
             input_text = data['input_text'] 
             language_selector = data['language_selector'] 
             formality_selector = data['formality_selector'] 
-            print()
-            print(data, input_text)
-            print("----------------------------")
+
             if input_text and language_selector and formality_selector:
                 global spell_checker # Global Variable 
                 spell_checker = SpellChecker(input_text, language_selector, formality_selector)
@@ -51,9 +49,7 @@ def correct():
             element_id = data['element_id'] 
             
             spellChecked_text = spell_checker.call_corrector(element_id)
-            print()
-            print(spellChecked_text)
-            print()
+
             return jsonify({'checked_text' : spellChecked_text })
         return jsonify({'error' : "Something went wrong!" })        
 

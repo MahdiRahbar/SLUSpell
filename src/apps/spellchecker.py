@@ -9,6 +9,7 @@ import pickle as pkl
 import re 
 from collections import Counter 
 import string 
+from .langSpec import * 
 
 
 
@@ -36,7 +37,8 @@ class WordCheck:
         self.language = language  
         dictionary_path = "apps/assets/dict/{}-common.txt".format(self.language)
         self.dict_obj = Dictionary(dictionary_path)
-        self.alt_dict_path = 'apps/assets/dict/twitter_sentiment140_dict_misspelled_removed.pkl'
+        # self.alt_dict_path = 'apps/assets/dict/twitter_sentiment140_dict_misspelled_removed.pkl'  
+        self.alt_dict_path = 'apps/assets/dict/en-common.txt'
 
         self.mis_counter = 0
         self.word_dict = self.get_dict()
