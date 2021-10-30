@@ -8,6 +8,8 @@
 import pickle as pkl
 import re 
 from collections import Counter 
+import string 
+from .langSpec import * 
 
 
 
@@ -35,12 +37,14 @@ class WordCheck:
         self.language = language  
         dictionary_path = "apps/assets/dict/{}-common.txt".format(self.language)
         self.dict_obj = Dictionary(dictionary_path)
-        self.alt_dict_path = 'apps/assets/dict/twitter_sentiment140_dict.pkl'
+        # self.alt_dict_path = 'apps/assets/dict/twitter_sentiment140_dict_misspelled_removed.pkl'  
+        self.alt_dict_path = 'apps/assets/dict/en-common.txt'
 
         self.mis_counter = 0
         self.word_dict = self.get_dict()
         self.alt_dict = self.ext_dict()
         self.word_list = self.words(text)
+        self.API_dict = {}
 
     
     def get_dict(self):
@@ -76,7 +80,8 @@ class WordCheck:
         p = re.compile("\w+") 
         for m in p.finditer(text):
             # word, index, index, Correction Flag, ID for frontend
-            temp_list.append([m.group(0),"",m.start(), m.end(),False, 0])
+            # temp_list.append([m.group(0),"",m.start(), m.end(),False, 0])
+            temp_list.append({'word':m.group(0),'correct':"", 'new_string':'','start_i':m.start(), 'end_i':m.end(),'correction_flag':False, 'id':0})
         return temp_list  
     
     def correction(self, word): 
@@ -107,22 +112,37 @@ class WordCheck:
 
     def run_checker(self):
         for i in range(len(self.word_list)):
-            temp_word = self.correction(self.word_list[i][0],)            
-            if self.word_list[i][0] != temp_word:
-                self.word_list[i][3] = True
-                self.word_list[i][1] = temp_word
-                self.mis_counter += 1 
-                self.word_list[i][-1] = self.mis_counter
+            temp_word = self.correction(self.word_list[i]['word'],)            
+            if self.word_list[i]['word'] != temp_word:
+                self.word_list[i]['correction_flag'] = True
+                self.word_list[i]['correct'] = temp_word
+                # self.mis_counter += 1 
+                # self.word_list[i]['id'] = self.mis_counter
+                self.word_list[i]['id'] = i
                 self.word_list[i] = self.highliter(self.word_list[i], i) # It has to contain the correct spelling
+                self.API_dict[i] = {'new_string': self.word_list[i]['new_string'] , 'word': self.word_list[i]['word'], 'correct':self.word_list[i]['correct'], 
+                                     'correction_flag':self.word_list[i]['correction_flag'] ,'id':self.word_list[i]['id']}
+            else: 
+                self.word_list[i]['correct'] = temp_word
+                self.word_list[i]['new_string'] = temp_word
+                self.word_list[i]['id'] = i
+                self.API_dict[i] = {'new_string': self.word_list[i]['new_string'] , 'word': self.word_list[i]['word'], 'correct':self.word_list[i]['correct'], 
+                                     'correction_flag':self.word_list[i]['correction_flag'] ,'id':self.word_list[i]['id']}
 
-        
+                    # temp_list.append({'word':m.group(0),'correct':"", 'new_string':'','start_i':m.start(), 'end_i':m.end(),'correction_flag':False, 'id':0})
+
     
     def highliter(self, word, index):
-        tagged_word =  "<span class='highlight popup highlight{} popup{}' id='higlight' onmouseover='show_popup({},\"{}\")' onmouseout='hide_popup({},\"{}\")'>".format(word[-1], word[-1], word[-1], word[1] ,word[-1], word[1]) + \
-                        "<a onclick='async_correction({})'><span class='popuptext' id='pop-up{}'>{}</span></a>{}</span>".format(word[-1],word[-1], word[1], word[0]) 
+        # tagged_word =  "<span class='highlight highlight{}' onmouseover='show_popup({},\"{}\")' onmouseout='hide_popup({},\"{}\")'>".format(word['id'], word['correct'] ,word['id'], word['correct'])+\
+        #                 "{}</span>".format(word['word'])
+        tagged_word =  "<span class='highlight highlight{}' onclick='show_correct({})' >".format(word['id'],word['id'])+\
+                        "{}</span>".format(word['word'])   # onmouseout='hide_correct({})'
+        
+        # "<span class='highlight popup highlight{} popup{}' id='higlight' onmouseover='show_popup({},\"{}\")' onmouseout='hide_popup({},\"{}\")'>".format(word[-1], word[-1], word[-1], word[1] ,word[-1], word[1]) + \
+        #                 "<a onclick='async_correction({})'><span class='popuptext' id='pop-up{}'>{}</span></a>{}</span>".format(word[-1],word[-1], word[1], word[0]) 
                         
         # The first span keeps the popup and has to keep the correct word
-        word[0] = tagged_word
+        word['new_string'] = tagged_word
         return word            
 
     def check_flag(self):
@@ -143,24 +163,32 @@ class WordCheck:
         temp_list = []
         p = re.compile("(?:^|(?:[.!?]\s+))(.)")    
         for m in p.finditer(text):
-            temp_list.append([m.group(0)[-1],"",m.start(), m.end(),False])
+            temp_list.append([m.group(0)['id'],"",m.start(), m.end(),False])
         return temp_list
 
     def call(self):
         self.run_checker()
         output = ""
-        for i in range(len(self.word_list)):            
-            output += self.word_list[i][0] + " "
-        return output  # , self.word_list[:][-1]
+        # for i in range(len(self.word_list)):            
+            # output += self.word_list[i]['word'] + " "
+
+        # return output  # , self.word_list[:][-1]
+        return self.API_dict
     
     def call_corrector(self, id):
         output = ""
         for i in range(len(self.word_list)):
-            if self.word_list[i][-1] == id: 
-                self.word_list[i][0] = self.word_list[i][1]
-        for i in range(len(self.word_list)):            
-            output += self.word_list[i][0] + " "
-        return output
+            if self.word_list[i]['id'] == id: 
+                self.word_list[i]['correction_flag'] = False
+                self.word_list[i]['word'] = self.word_list[i]['correct']
+                self.word_list[i]['new_string'] = self.word_list[i]['correct']
+                self.API_dict[i]['correction_flag'] = False
+                self.API_dict[i]['word'] = self.word_list[i]['correct']
+                self.API_dict[i]['new_string'] = self.word_list[i]['correct']
+
+        # for i in range(len(self.word_list)):            
+        #     output += self.word_list[i]['word'] + " "
+        return self.API_dict
         
 
 

@@ -17,6 +17,32 @@ function hide_popup(input_id, correct_word){
   ,3000);
 };
 
+
+
+/////------------------------------------------------------------------------
+
+function show_correct(input_id) { // field_ID
+  let new_id = "word" + input_id;
+  document.getElementById(new_id).classList.remove('hl_faded');
+  document.getElementById(new_id).classList.add('hl_focused');
+  setTimeout('',4000);
+  
+};
+
+function hide_correct(input_id){
+  let new_id = "word" + input_id; 
+  try {
+    setTimeout(function(){
+      document.getElementById(new_id).classList.remove('hl_focused');
+      document.getElementById(new_id).classList.add('hl_faded');
+    }  
+    ,2000);
+  }catch (e) {
+    // console.log(e.message)
+  }
+
+};
+
 /////------------------------------------------------------------------------
 
 
@@ -38,26 +64,24 @@ function highlight(text) {
 /////------------------------------------------------------------------------
 
 
-document
-.querySelector("#Text_box")
-.addEventListener("keyup", function countWord() {
-  let res = [];
-  let str = this.value.replace(/[\t\n\r\.\?\!]/gm, " ").split(" ");
-  str.map((s) => {
-    let trimStr = s.trim();
-    if (trimStr.length > 0) {
-      res.push(trimStr);
-    }
-  });
-  document.querySelector("#word_count").innerText = res.length;
-});
+// document
+// .querySelector("#Text_box")
+// .addEventListener("keyup", function countWord() {
+//   let res = [];
+//   let str = this.value.replace(/[\t\n\r\.\?\!]/gm, " ").split(" ");
+//   str.map((s) => {
+//     let trimStr = s.trim();
+//     if (trimStr.length > 0) {
+//       res.push(trimStr);
+//     }
+//   });
+//   document.querySelector("#word_count").innerText = res.length;
+// });
 
 
 /////------------------------------------------------------------------------
 //// typingindicator
-function call_async(){
-  async();
-}
+
 
 var TYPE_FLAG_BOOL = 0 ; 
 let timer,
@@ -90,3 +114,35 @@ function handleKeyUp(e) {
   }, timeoutVal);
 }
 
+
+function call_async(){
+  async();
+}
+
+
+function corrector(input_id){
+  // hide_correct(input_id);
+  async_correction(input_id);
+
+};
+
+
+// class WordDictionary{
+
+//   constructor(inputJSON){
+//     this.inputJSON=inputJSON;
+//     this.word_list = []; 
+//   }
+
+//   buildWordList(){
+//     for (let i = 0; i < this.inputJSON.length; i++) { 
+//       console.log(this.inputJSON[i]);
+//       var temp = this.inputJSON[i];
+//       this.word_list.push(temp['new_string']);;
+//     }
+//   }
+
+//   toString(){
+//     let wordString = a.join(); 
+// }
+// }

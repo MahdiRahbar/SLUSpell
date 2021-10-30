@@ -8357,8 +8357,20 @@
   .highlight {
       background-color: yellow !important;
     }  
+  	
   
-  
+  .hl_focused {
+    opacity: 100%;
+      font-size: medium !important;
+      background-color: yellow !important;
+    }  
+
+  .hl_faded{
+    opacity: 70%;
+    font-size: small !important;
+    background-color: #FFFF99 !important;
+  }  
+
     /* Popup container */
   .popup {
       position: relative;
