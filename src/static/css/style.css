@@ -8378,32 +8378,32 @@
   }
 
   .hl_focused.hl_1{
-    font-size: 90% !important;
+    font-size: 80% !important;
     opacity: 100%;
     background-color: rgb(255, 196, 0) !important;  
   }
 
   .hl_focused.hl_2{
-    font-size: 80% !important;
+    font-size: 60% !important;
     opacity: 100%;
     background-color: rgb(255, 145, 0) !important;
   }
 /* -------------------------------------------------- */
   .hl_faded.hl_0 {
-    font-size: 80% !important;
+    font-size: 70% !important;
     opacity: 70%;
    background-color: #FFFF99 !important;
     
   }
 
   .hl_faded.hl_1{
-    font-size: 70% !important;
+    font-size: 50% !important;
     opacity:70%;
     background-color: #fdee99 !important;
   }
 
   .hl_faded.hl_2{
-    font-size: 60% !important;
+    font-size: 30% !important;
     opacity: 70%;
     background-color: #fdd7aa !important;
   }
