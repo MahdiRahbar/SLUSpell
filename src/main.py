@@ -47,8 +47,9 @@ def correct():
         if request.method == 'POST':      
             data = request.get_json(force=True)
             element_id = data['element_id'] 
+            list_index = data['list_index'] 
             
-            spellChecked_text = spell_checker.call_corrector(element_id)
+            spellChecked_text = spell_checker.call_corrector(element_id, list_index)
 
             return jsonify({'checked_text' : spellChecked_text })
         return jsonify({'error' : "Something went wrong!" })        

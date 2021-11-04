@@ -8359,7 +8359,7 @@
     }  
   	
   
-  .hl_focused {
+  /* .hl_focused {
     opacity: 100%;
       font-size: medium !important;
       background-color: yellow !important;
@@ -8369,7 +8369,44 @@
     opacity: 70%;
     font-size: small !important;
     background-color: #FFFF99 !important;
-  }  
+  }   */
+
+  .hl_focused.hl_0 {
+    font-size: 100% !important;
+    opacity: 100%;
+    background-color: yellow !important;
+  }
+
+  .hl_focused.hl_1{
+    font-size: 90% !important;
+    opacity: 100%;
+    background-color: yellow !important;
+  }
+
+  .hl_focused.hl_2{
+    font-size: 80% !important;
+    opacity: 100%;
+    background-color: yellow !important;
+  }
+/* -------------------------------------------------- */
+  .hl_faded.hl_0 {
+    font-size: 80% !important;
+    opacity: 70%;
+   background-color: #FFFF99 !important;
+    
+  }
+
+  .hl_faded.hl_1{
+    font-size: 70% !important;
+    opacity:70%;
+    background-color: #FFFF99 !important;
+  }
+
+  .hl_faded.hl_2{
+    font-size: 60% !important;
+    opacity: 70%;
+    background-color: #FFFF99 !important;
+  }
 
     /* Popup container */
   .popup {
