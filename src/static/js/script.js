@@ -120,9 +120,10 @@ function call_async(){
 }
 
 
-function corrector(input_id){
+function corrector(input_id,  word_index){
   // hide_correct(input_id);
-  async_correction(input_id);
+  async_correction(input_id, word_index);
+  // call_async();
 
 };
 
