@@ -27,7 +27,7 @@ function show_correct(input_id) { // field_ID
   document.getElementById(new_id).classList.add('hl_focused');
   setTimeout('',4000);
   
-};
+}; 
 
 function hide_correct(input_id){
   let new_id = "word" + input_id; 
