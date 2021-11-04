@@ -6,57 +6,76 @@
 
 
 import pickle as pkl
+import os 
 import re 
 from collections import Counter 
 import string 
+
+import sys
+# sys.path.append()
 from .langSpec import * 
+
+from numpy import log
+
 
 
 
 class Dictionary:
-    def __init__(self, path) -> None:
-        self.dict = ()
-        self.path = path 
-        self.word_dict = self.read_dict_file()
+    def __init__(self, lang, formality) -> None:
+        self.lang = lang 
+        self.formality = formality
+        self.main_dict_path = os.path.join('apps','assets', 'dict', "{}-common.txt".format(self.lang))
+        self.uni_dict_path = os.path.join('apps','assets', 'dict', "{}_dict.pkl".format(self.lang))
+        self.bi_dict_path = os.path.join('apps','assets', 'dict', "{}_bi_dict.pkl".format(self.lang))
+
+        # self.word_dict = self.read_dict_file()
+
+    def read_dict_file(self):
+        WORDS = Counter(self.read_dict(open(self.main_dict_path,encoding='utf-8').read()))
+        return WORDS 
 
     def read_dict(self, text): 
         return re.findall(r'\w+', text.lower())
 
-    def read_dict_file(self):
-        WORDS = Counter(self.read_dict(open(self.path,encoding='utf-8').read()))
-        return WORDS
-
     def cal_proba(self, given_word):
         return self.word_dict[given_word]/ sum(self.word_dict.values())
 
+    def open_prob_dict(self):
+        with open(self.uni_dict_path, 'rb') as f:
+            uni_dict = pkl.load(f)
+        return uni_dict 
+
+    def open_bi_prob_dict(self):
+        with open(self.bi_dict_path, 'rb') as f:
+            bi_dict = pkl.load(f)
+        return bi_dict 
 
 
 class WordCheck:
     def __init__(self, text,language, formality):
+        text = text.replace('\u202f', ' ').replace('\xa0', ' ')
+        self.text = text
         self.formality = formality
         self.language = language  
-        dictionary_path = "apps/assets/dict/{}-common.txt".format(self.language)
-        self.dict_obj = Dictionary(dictionary_path)
-        # self.alt_dict_path = 'apps/assets/dict/twitter_sentiment140_dict_misspelled_removed.pkl'  
-        self.alt_dict_path = 'apps/assets/dict/en-common.txt'
+        self.dict_obj = Dictionary(self.language, self.formality)
 
         self.mis_counter = 0
-        self.word_dict = self.get_dict()
-        self.alt_dict = self.ext_dict()
-        self.word_list = self.words(text)
+
         self.API_dict = {}
+        self.lanObj = LangSpec(text, self.language)   
+        self.word_list = self.words(text)
+        self.text_obj = self.lanObj.call()
+        self.text_chunks = self.text_obj.call()
+        self.wordList_len = len(self.word_list)
+        self.uni_dict, self.bi_dict = self.get_dict()
+
 
     
     def get_dict(self):
-        word_dict = self.dict_obj.read_dict_file()
-        return word_dict
-
-    def ext_dict(self)->dict:        
-        if self.formality == 'informal' :
-            with open(self.alt_dict_path, 'rb') as f:
-                alt_dict = pkl.load(f)
-        else: 
-            alt_dict = self.word_dict
+        uni_dict = self.dict_obj.open_prob_dict()
+        bi_dict = self.dict_obj.open_bi_prob_dict()
+        return uni_dict, bi_dict
+     
 
     def cal_proba_alt(self, given_word):
         if given_word in self.alt_dict.keys():
@@ -76,17 +95,68 @@ class WordCheck:
         Previous important changes:
         # return re.findall(r'\w+', text.lower())
         '''
-        temp_list = []
-        p = re.compile("\w+") 
+        self.word_list = []
+        p = re.compile("\w+[-\']*\w*") 
         for m in p.finditer(text):
-            # word, index, index, Correction Flag, ID for frontend
-            # temp_list.append([m.group(0),"",m.start(), m.end(),False, 0])
-            temp_list.append({'word':m.group(0),'correct':"", 'new_string':'','start_i':m.start(), 'end_i':m.end(),'correction_flag':False, 'id':0})
-        return temp_list  
+            self.word_list.append(m.group(0).lower())
+        # self.word_list = [x.group() for x in re.finditer( "\w+[-\']*\w*", input_str)]
+        return self.word_list
+
     
     def correction(self, word): 
         "Most probable spelling correction for word."
-        return max(self.candidates(word), key=self.dict_obj.cal_proba)
+        # return max(self.candidates(word), key=self.dict_obj.cal_proba)
+        new_candidates = list(self.candidates(word))
+
+        word_index = self.word_list.index(word)
+        candidate_list = []
+        prob_list = []
+        
+
+        for i in range(len(new_candidates)):
+            if (word_index+1)!=len(self.word_list):
+                next_word_exist = (new_candidates[i], self.word_list[word_index+1]) in self.bi_dict.keys()
+            else:
+                next_word_exist = False
+
+            if (word_index-1)>=0:
+                previous_word_exist= (self.word_list[word_index-1], new_candidates[i]) in self.bi_dict.keys()
+            else:
+                previous_word_exist = False
+            
+
+            if (self.wordList_len > 1) and (word_index == 0 ) and (word_index+1!=len(self.word_list)) and next_word_exist:
+                _prob = log(self.bi_dict[(new_candidates[i], self.word_list[word_index+1])]) #* log(self.uni_dict[new_candidates[i]])
+                prob_list.append(_prob)
+                candidate_list.append(new_candidates[i])
+                # else:  It can consider the unigram probability
+            
+            elif (self.wordList_len > 1) and (word_index > 0 ) and previous_word_exist:
+                _prob = log(self.bi_dict[(self.word_list[word_index-1],new_candidates[i])]) # * log(self.uni_dict[new_candidates[i]])
+                prob_list.append(_prob)
+                candidate_list.append(new_candidates[i])
+            elif (self.wordList_len > 1) and next_word_exist:
+                _prob = log(self.bi_dict[(new_candidates[i], self.word_list[word_index+1])]) # * log(self.uni_dict[new_candidates[i]])
+                prob_list.append(_prob)
+                candidate_list.append(new_candidates[i]) 
+            elif (word_index == 0 ) and (new_candidates[i] in self.uni_dict.keys()):            
+                prob_list.append(log(self.uni_dict[new_candidates[i]]))
+                candidate_list.append(new_candidates[i])
+            else:                
+                prob_list.append(sys.float_info.epsilon)  # log(self.uni_dict[new_candidates[i]])
+                candidate_list.append(new_candidates[i])            
+        
+
+
+        if len(candidate_list)>0:
+            _, candidate_list = zip(*sorted(zip(prob_list, candidate_list),reverse= True))
+            self.word_list[word_index] = candidate_list[0]
+            if len(candidate_list)< 3:
+                return candidate_list
+            else:
+                return candidate_list[:3]
+        
+
 
     def candidates(self, word): 
         "Generate possible spelling corrections for word."
@@ -94,7 +164,7 @@ class WordCheck:
 
     def known(self, words): 
         "The subset of `words` that appear in the dictionary of self.word_dict."
-        return set(w for w in words if w in self.word_dict)
+        return set(w for w in words if w in self.uni_dict.keys())
 
     def edits1(self, word):
         "All edits that are one edit away from `word`."
@@ -110,43 +180,52 @@ class WordCheck:
         "All edits that are two edits away from `word`."
         return (e2 for e1 in self.edits1(word) for e2 in self.edits1(e1))  
 
-    def run_checker(self):
-        for i in range(len(self.word_list)):
-            temp_word = self.correction(self.word_list[i]['word'],)            
-            if self.word_list[i]['word'] != temp_word:
-                self.word_list[i]['correction_flag'] = True
-                self.word_list[i]['correct'] = temp_word
-                # self.mis_counter += 1 
-                # self.word_list[i]['id'] = self.mis_counter
-                self.word_list[i]['id'] = i
-                self.word_list[i] = self.highliter(self.word_list[i], i) # It has to contain the correct spelling
-                self.API_dict[i] = {'new_string': self.word_list[i]['new_string'] , 'word': self.word_list[i]['word'], 'correct':self.word_list[i]['correct'], 
-                                     'correction_flag':self.word_list[i]['correction_flag'] ,'id':self.word_list[i]['id']}
-            else: 
-                self.word_list[i]['correct'] = temp_word
-                self.word_list[i]['new_string'] = temp_word
-                self.word_list[i]['id'] = i
-                self.API_dict[i] = {'new_string': self.word_list[i]['new_string'] , 'word': self.word_list[i]['word'], 'correct':self.word_list[i]['correct'], 
-                                     'correction_flag':self.word_list[i]['correction_flag'] ,'id':self.word_list[i]['id']}
+    def run_checker(self):  
+        for i in range(len(self.text_chunks)):
+            if (self.text_chunks[i]['check_flag']) == True and (self.text_obj.to_lower(self.text_chunks[i]['word']) not in self.uni_dict): 
+                temp_word_list = list(self.correction(self.text_obj.to_lower(self.text_chunks[i]['word'])))            
+                self.text_chunks[i]['correction_flag'] = True
+                
+                if self.text_chunks[i]['cap_flag']:
+                    for j in range(len(temp_word_list)):
+                        temp_word_list[j] = self.capitalize(temp_word_list[j])
 
-                    # temp_list.append({'word':m.group(0),'correct':"", 'new_string':'','start_i':m.start(), 'end_i':m.end(),'correction_flag':False, 'id':0})
+                self.text_chunks[i]['correct'] = temp_word_list
+                self.text_chunks[i]['id'] = i
+                ## 
+                self.text_chunks[i] = self.highliter(self.text_chunks[i])
+                ##
+            else: 
+                self.text_chunks[i]['id'] = i
+
+                if self.text_chunks[i]['cap_flag'] and  (self.text_chunks[i]['word'][0]!=self.text_chunks[i]['word'][0].upper()):
+                    self.text_chunks[i]['correction_flag'] = True
+                    self.text_chunks[i]['correct'] = [self.capitalize(self.text_chunks[i]['word'])]
+                    self.text_chunks[i]= self.highliter(self.text_chunks[i])
+                else:
+                    self.text_chunks[i]['correction_flag'] = False
+                    self.text_chunks[i]['correct'] = self.text_chunks[i]['word']                
+                    self.text_chunks[i]['new_string'] = self.text_chunks[i]['word'] 
+
+            
+            self.API_dict[i] = self.jsonify(self.text_chunks[i]['new_string'],
+                    self.text_chunks[i]['word'],
+                    self.text_chunks[i]['correct'],
+                    self.text_chunks[i]['correction_flag'],
+                    self.text_chunks[i]['id'])
+
 
     
-    def highliter(self, word, index):
-        # tagged_word =  "<span class='highlight highlight{}' onmouseover='show_popup({},\"{}\")' onmouseout='hide_popup({},\"{}\")'>".format(word['id'], word['correct'] ,word['id'], word['correct'])+\
-        #                 "{}</span>".format(word['word'])
+    def highliter(self, word):
         tagged_word =  "<span class='highlight highlight{}' onclick='show_correct({})' >".format(word['id'],word['id'])+\
                         "{}</span>".format(word['word'])   # onmouseout='hide_correct({})'
         
-        # "<span class='highlight popup highlight{} popup{}' id='higlight' onmouseover='show_popup({},\"{}\")' onmouseout='hide_popup({},\"{}\")'>".format(word[-1], word[-1], word[-1], word[1] ,word[-1], word[1]) + \
-        #                 "<a onclick='async_correction({})'><span class='popuptext' id='pop-up{}'>{}</span></a>{}</span>".format(word[-1],word[-1], word[1], word[0]) 
-                        
-        # The first span keeps the popup and has to keep the correct word
         word['new_string'] = tagged_word
         return word            
 
-    def check_flag(self):
-        pass
+    def jsonify(self,new_string,word,correct,correction_flag,word_id):
+        return {'new_string': new_string, 'word': word, 'correct':correct, 
+                                     'correction_flag':correction_flag ,'id':word_id}
 
     def cap_begin(self, text):
         '''
@@ -165,29 +244,28 @@ class WordCheck:
         for m in p.finditer(text):
             temp_list.append([m.group(0)['id'],"",m.start(), m.end(),False])
         return temp_list
+    
+    def capitalize(self, word): 
+        if len(word)>1:
+            return word[0].upper() + word[1:]
+        else: 
+            return word.upper()
 
     def call(self):
         self.run_checker()
-        output = ""
-        # for i in range(len(self.word_list)):            
-            # output += self.word_list[i]['word'] + " "
-
-        # return output  # , self.word_list[:][-1]
         return self.API_dict
-    
-    def call_corrector(self, id):
-        output = ""
-        for i in range(len(self.word_list)):
-            if self.word_list[i]['id'] == id: 
-                self.word_list[i]['correction_flag'] = False
-                self.word_list[i]['word'] = self.word_list[i]['correct']
-                self.word_list[i]['new_string'] = self.word_list[i]['correct']
-                self.API_dict[i]['correction_flag'] = False
-                self.API_dict[i]['word'] = self.word_list[i]['correct']
-                self.API_dict[i]['new_string'] = self.word_list[i]['correct']
 
-        # for i in range(len(self.word_list)):            
-        #     output += self.word_list[i]['word'] + " "
+    
+    def call_corrector(self, id, list_index):
+        for i in range(len(self.text_chunks)):
+            if self.text_chunks[i]['id'] == id: 
+                self.text_chunks[i]['correction_flag'] = False
+                self.text_chunks[i]['word'] = self.text_chunks[i]['correct'][list_index]
+                self.text_chunks[i]['new_string'] = self.text_chunks[i]['correct'][list_index]
+                self.API_dict[i]['correction_flag'] = False
+                self.API_dict[i]['word'] = self.text_chunks[i]['correct'][list_index]
+                self.API_dict[i]['new_string'] = self.text_chunks[i]['correct'][list_index]
+
         return self.API_dict
         
 
@@ -204,8 +282,8 @@ class SpellChecker:
         output_str = self.word_check.call()
         return output_str
 
-    def call_corrector(self, id):
-        return self.word_check.call_corrector(id)
+    def call_corrector(self, id, list_index):
+        return self.word_check.call_corrector(id, list_index)
         
 
 
