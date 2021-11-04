@@ -8374,19 +8374,19 @@
   .hl_focused.hl_0 {
     font-size: 100% !important;
     opacity: 100%;
-    background-color: yellow !important;
+    background-color: rgb(252, 252, 0) !important;
   }
 
   .hl_focused.hl_1{
     font-size: 90% !important;
     opacity: 100%;
-    background-color: yellow !important;
+    background-color: rgb(255, 196, 0) !important;  
   }
 
   .hl_focused.hl_2{
     font-size: 80% !important;
     opacity: 100%;
-    background-color: yellow !important;
+    background-color: rgb(255, 145, 0) !important;
   }
 /* -------------------------------------------------- */
   .hl_faded.hl_0 {
@@ -8399,13 +8399,13 @@
   .hl_faded.hl_1{
     font-size: 70% !important;
     opacity:70%;
-    background-color: #FFFF99 !important;
+    background-color: #fdee99 !important;
   }
 
   .hl_faded.hl_2{
     font-size: 60% !important;
     opacity: 70%;
-    background-color: #FFFF99 !important;
+    background-color: #fdd7aa !important;
   }
 
     /* Popup container */
