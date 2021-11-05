@@ -23,8 +23,19 @@ function hide_popup(input_id, correct_word){
 
 function show_correct(input_id) { // field_ID
   let new_id = "word" + input_id;
-  document.getElementById(new_id).classList.remove('hl_faded');
-  document.getElementById(new_id).classList.add('hl_focused');
+  let element = document.getElementsByClassName(new_id);
+  [].forEach.call(element, function(el) {
+    el.classList.remove("hl_faded");
+    el.classList.add("hl_focused");
+  });
+
+  // element.classList.remove("hl_faded");
+  // element.classList.add("hl_focused");
+
+  // document.getElementsByClassName(new_id).classList.remove('hl_faded');
+  // document.getElementsByClassName(new_id).classList.add('hl_focused');
+  // document.getElementById(new_id).classList.remove('hl_faded');
+  // document.getElementById(new_id).classList.add('hl_focused');
   setTimeout('',4000);
   
 }; 

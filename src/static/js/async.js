@@ -34,7 +34,7 @@ function ShowMisspelled(input_json){
             console.log(temp);
             var new_string= '';
             for (var j = 0; j < temp['correct'].length; j++) {
-                new_string = new_string + "<button type='button' class='btn btn-light hl_"+j+" hl_faded' id='word"+ temp['id']+ "\'" + "onmouseover='show_correct("+ temp['id'] +")' onclick='corrector("+temp['id']+"," +j + ")'>"+temp['correct'][j]+"</button>" + "</br>";
+                new_string = new_string + "<button type='button' class='btn btn-light word"+temp['id']+ " hl_"+j+" hl_faded' id='word"+ temp['id']+ "\'" + "onmouseover='show_correct("+ temp['id'] +")' onclick='corrector("+temp['id']+"," +j + ")'>"+temp['correct'][j]+"</button>" + "</br>";
                     
                 }  
                 temp_string.push(new_string);  
