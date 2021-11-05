@@ -82,6 +82,17 @@
               Word Count:
               <span id="word_count">0</span>
             </p>
+       <div id="form-group">
+            <form  id="input_text_form" method="POST">   
+              <label for="Text_box"><h2>Enter your text here! :)</h2></label>
+              <textarea class="form-control" id="Text_box" name='input_text' rows="3" style="width: 100%; margin-bottom: 1%;" placeholder="Enter your text here..." form="input_text_form"></textarea>
+              <div>
+                <small id="typing_alert"  style="display: none">Typing</small>
+              </div>
+              <input type="submit" onclick="async()" class="btn btn-primary" id="spell_check_btn"  name="submit" value="Check Spelling!" form="input_text_form" style="margin-top: 20px;"></input>
+              <img src="https://img.icons8.com/small/24/000000/copy.png"  onclick="copyToClipboard()" title="copy to clipboard" style="padding-left: 60px;margin-top: 20px;"/>
+            </form>  
+          </div>
       </div>    
     </div>
   </div>
