@@ -71,6 +71,18 @@ function highlight(text) {
   edit_enable();
 }
 
+
+////-----------------------------------------
+//Copy Button
+function copyToClipboard() {
+  let textarea = document.getElementById("Text_box");
+  if(textarea.value == ""){
+    return
+  }else{
+    textarea.select();
+    document.execCommand('copy');
+  }
+}
 /////------------------------------------------------------------------------
 
 
