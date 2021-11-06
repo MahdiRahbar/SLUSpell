@@ -8477,7 +8477,7 @@
           to {opacity:0 ;}
         }
     /* typing indicator blinking  */
-    * {
+    #indicator {
       margin: 0;
       padding: 0;
       box-sizing: border-box;

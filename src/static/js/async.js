@@ -48,7 +48,6 @@ function ShowMisspelled(input_json){
 
 
 
-
 function async(){
       var textData = document.getElementById("Text_box").textContent;
       var languageSelector = document.getElementById("Language_Selection").value;
@@ -58,7 +57,7 @@ function async(){
         var xml = new XMLHttpRequest();
         xml.open("POST", "/check", true);
         xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xml.onload = function(){
+        xml.onload = function(event){
             var dataReply = JSON.parse(xml.responseText) ;// checked_text
             // document.getElementById("Text_display").innerHTML = dataReply.checked_text;
             // console.log(dataReply);
@@ -70,7 +69,12 @@ function async(){
             // console.log("HTML String" + html_string);
             document.getElementById("Text_box").innerHTML = html_string;
             document.getElementById("Text_display").innerHTML = corrected_string;
-            document.getElementById("Text_box").setSelectionRange(html_string.length,html_string.length);
+
+            // let input_element = document.getElementById("Text_box");
+            // input_element.focus();
+            // input_element.selectionStart = input_element.selectionEnd = input_element.innerHTML.length;
+
+            event.preventDefault();
 
     };
     dataSend = JSON.stringify({
@@ -81,7 +85,7 @@ function async(){
     xml.send(dataSend)
     
 
-    event.preventDefault();
+    // event.preventDefault();
 };
 
 
@@ -93,7 +97,7 @@ function async_correction(input_id, word_index){
       var xml2 = new XMLHttpRequest();
       xml2.open("POST", "/correct", true);
       xml2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xml2.onload = function(){
+      xml2.onload = function(event){
           var dataReply = JSON.parse(xml2.responseText) ;// checked_text
           console.log(dataReply.checked_text);
 
@@ -104,15 +108,15 @@ function async_correction(input_id, word_index){
           document.getElementById("Text_box").innerHTML = html_string;
           document.getElementById("Text_display").innerHTML = corrected_string;
 
-
+          event.preventDefault();
   };
   dataSend = JSON.stringify({
       'element_id' : element_id,
       'list_index' : list_index
   });
   xml2.send(dataSend)
-
-  event.preventDefault();
+//   event.preventDefault();
+  
 };
 
 

@@ -126,8 +126,40 @@ function handleKeyUp(e) {
 }
 
 
+function fix_cursor(input_element, input_string) {
+  input_element.focus();
+  // input_element.setSelectionRange(input_string.length, input_string.length);
+  input_element.setSelectionRange = (input_string.length, input_string.length);
+}
+
+
+function positionCursor() {
+              
+  var tag = document.getElementById("Text_box");  
+  // Creates range object
+  var setpos = document.createRange();    
+  // Creates object for selection
+  var set = window.getSelection();    
+  // Set start position of range
+  setpos.setStart(tag, tag.textContent.length);    
+  // Collapse range within its boundary points
+  // Returns boolean
+  setpos.collapse(true);    
+  // Remove all ranges set
+  set.removeAllRanges();    
+  // Add range with respect to range object.
+  set.addRange(setpos);    
+  // Set cursor on focus
+  tag.focus();
+}
+
+
 function call_async(){
   async();
+  // var tag = document.getElementById("Text_box");  
+  // fix_cursor(tag, tag.innerHTML);
+
+  // fix_cursor(input_element,input_element.innerHTML);
 }
 
 
