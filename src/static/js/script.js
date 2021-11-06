@@ -169,24 +169,3 @@ function corrector(input_id,  word_index){
   // call_async();
 
 };
-
-
-// class WordDictionary{
-
-//   constructor(inputJSON){
-//     this.inputJSON=inputJSON;
-//     this.word_list = []; 
-//   }
-
-//   buildWordList(){
-//     for (let i = 0; i < this.inputJSON.length; i++) { 
-//       console.log(this.inputJSON[i]);
-//       var temp = this.inputJSON[i];
-//       this.word_list.push(temp['new_string']);;
-//     }
-//   }
-
-//   toString(){
-//     let wordString = a.join(); 
-// }
-// }

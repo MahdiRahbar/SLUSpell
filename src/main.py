@@ -10,6 +10,10 @@ from apps.spellchecker import SpellChecker
 
 # added for debugging purposes
 import logging, traceback 
+import pickle as pkl 
+
+with open('templates/assets/main_page.pkl', 'rb') as f:
+    main_page = pkl.load(f)
 
 
 app = Flask(__name__)
@@ -17,7 +21,19 @@ app = Flask(__name__)
 
 @app.route('/',  methods =['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    if request.method == 'GET':
+        page_lang = 'English'
+        return render_template('index.html' , message = main_page[page_lang])
+    elif request.method == 'POST':
+        page_lang = request.form['main_page_lang']
+        if page_lang == "English":
+            return render_template('index.html', message = main_page[page_lang])
+        elif page_lang == "Irish": 
+            return render_template('index.html', message = main_page[page_lang])
+        else:
+            return render_template('index.html' , message = main_page['English'])
+    else:
+        return "Something went wrong while loading the page!"
 
 
 @app.route('/check', methods =['GET','POST'])
@@ -27,8 +43,7 @@ def check():
             data = request.get_json(force=True)
             input_text = data['input_text'] 
             language_selector = data['language_selector'] 
-            formality_selector = data['formality_selector'] 
-
+            formality_selector = data['formality_selector']             
             if input_text and language_selector and formality_selector:
                 global spell_checker # Global Variable 
                 spell_checker = SpellChecker(input_text, language_selector, formality_selector)
