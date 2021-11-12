@@ -46,9 +46,24 @@ function ShowMisspelled(input_json){
     return correct_string;   
 };
 
-
-
-
+  
+  function placeCaretAtEnd(el) {
+    el.focus();
+    if (typeof window.getSelection != "undefined" &&
+      typeof document.createRange != "undefined") {
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } else if (typeof document.body.createTextRange != "undefined") {
+      var textRange = document.body.createTextRange();
+      textRange.moveToElementText(el);
+      textRange.collapse(false);
+      textRange.select();
+    }
+  }
 
 function async(){
       var textData = document.getElementById("Text_box").textContent;
@@ -69,8 +84,11 @@ function async(){
             console.log("called from inside async\n"+html_string);
             let corrected_string = ShowMisspelled(dataReply.checked_text);
             // console.log("HTML String" + html_string);
+
+            
             document.getElementById("Text_box").innerHTML = html_string;
             document.getElementById("Text_display").innerHTML = corrected_string;
+            placeCaretAtEnd(document.getElementById("Text_box"));
 
             // let input_element = document.getElementById("Text_box");
             // input_element.focus();
