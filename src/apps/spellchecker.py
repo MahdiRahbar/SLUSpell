@@ -69,7 +69,14 @@ class WordCheck:
         self.wordList_len = len(self.word_list)
         self.uni_dict, self.bi_dict = self.get_dict()
 
+        self.letters = set(''.join(self.open_pickle(os.path.join('apps','assets', 'dict', "{}_chars.pkl".format(self.language)))).lower())
 
+
+
+
+    def open_pickle(self, path):
+        with open(path, 'rb') as f:
+            return pkl.load(f)
     
     def get_dict(self):
         uni_dict = self.dict_obj.open_prob_dict()
@@ -168,7 +175,7 @@ class WordCheck:
 
     def edits1(self, word):
         "All edits that are one edit away from `word`."
-        letters    = 'abcdefghijklmnopqrstuvwxyz'
+        letters    = self.letters
         splits     = [(word[:i], word[i:])    for i in range(len(word) + 1)]
         deletes    = [L + R[1:]               for L, R in splits if R]
         transposes = [L + R[1] + R[0] + R[2:] for L, R in splits if len(R)>1]
