@@ -16,9 +16,9 @@ file_path = [os.path.join(_testPath, 'corrections500.tsv'),]
 newObj = OpenTest(file_path[0])
 tests, answers =  newObj.get_tests()
 
-def test_ga(tests, answers):
+def test_ga(tests = tests, answers = answers):
     pass
 
 def test():
-    with pytest.raises(SystemExit):
-        pass
+    # with pytest.raises(SystemExit):
+    pass
