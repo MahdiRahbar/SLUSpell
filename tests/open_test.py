@@ -8,6 +8,7 @@
 class OpenTest:
     def __init__(self, path):
         self.path = path 
+        self.tests, self.answers = self.get_tests()
 
     def open_file(self):
         """
@@ -47,3 +48,14 @@ class OpenTest:
             test_results.append(test_list[i][1])
         return test_cases, test_results
 
+    def test_input(self):
+        if self.tests and self.answers:
+            for test, answer in zip(self.tests, self.answers):
+                self.assertText(test,answer)
+        else:
+            raise AssertionError("No file test and answer file is defined.")
+    
+    def assertText(self, test_case, correct_case , id = None, 
+                    message= '' ):
+        assert test_case == correct_case , 'The input test case isn\'t match with the correct case. \n \
+                            Excepted: {} \n but received: {}'.format(correct_case, test_case)
