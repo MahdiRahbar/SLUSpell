@@ -2,13 +2,14 @@ import pytest
 import os 
 import sys
 
-sys.path.append("..")
+
+_path = os.path.abspath(os.path.dirname(__file__))
+sys.path.append(os.path.join(_path, '..'))
 from src.apps import spellchecker
 from open_test import OpenTest
 
 
 
-_path = os.path.abspath(os.path.dirname(__file__))
 _testPath = os.path.join(_path, 'assets')
 
 file_path = [os.path.join(_testPath, 'corrections500.tsv'),]
