@@ -3,7 +3,7 @@
 
 # Spell Checker
 
-Spell Checker is a small project that aims to improve ways to find spelling mistakes and predict what the writer tends to say. 
+SLUSpell is a small project that aims to improve ways to find spelling mistakes and predict what the writer tends to say. 
 
 *****
 ## Usage Guide
