@@ -1,5 +1,5 @@
 <a href="https://opensource.org/licenses/GPL-3.0"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" alt="License"></a>
-[![Build Status](https://app.travis-ci.com/MahdiRahbar/Spell_Checker.svg?branch=main)](https://app.travis-ci.com/MahdiRahbar/Spell_Checker)
+[![Build Status](https://app.travis-ci.com/MahdiRahbar/SLUSpell.svg?branch=main)](https://app.travis-ci.com/MahdiRahbar/SLUSpell)
 
 # Spell Checker
 
