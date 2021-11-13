@@ -19,15 +19,14 @@ from numpy import log
 
 
 
-
 class Dictionary:
     def __init__(self, lang, formality) -> None:
         self.lang = lang 
         self.formality = formality
-        self.main_dict_path = os.path.join('apps','assets', 'dict', "{}-common.txt".format(self.lang))
-        self.uni_dict_path = os.path.join('apps','assets', 'dict', "{}_dict.pkl".format(self.lang))
-        self.bi_dict_path = os.path.join('apps','assets', 'dict', "{}_bi_dict.pkl".format(self.lang))
-
+        _path = os.path.abspath(os.path.dirname(__file__))
+        self.main_dict_path = os.path.join(_path,'assets', 'dict', "{}-common.txt".format(self.lang))
+        self.uni_dict_path = os.path.join(_path,'assets', 'dict', "{}_dict.pkl".format(self.lang))
+        self.bi_dict_path = os.path.join(_path,'assets', 'dict', "{}_bi_dict.pkl".format(self.lang))
         # self.word_dict = self.read_dict_file()
 
     def read_dict_file(self):
