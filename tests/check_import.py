@@ -10,8 +10,9 @@ import sys
 import pytest
 _path = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(os.path.join(_path, '..'))
-from src.apps import spellchecker
-from src.apps import langSpec
+from sluspell.apps import spellchecker
+from sluspell.apps import langSpec
+__test__ = True
 
 
 def get_filepaths(directory):
@@ -24,19 +25,22 @@ def get_filepaths(directory):
     return file_paths  
 
 # @pytest.fixture
-def test_open_pickle(path):
-    path_list = get_filepaths(path)
+directory_path = os.path.join(_path, '..','sluspell','apps','assets','dict') 
+
+def test_open_pickle(dir_path = directory_path):
+    path_list = get_filepaths(dir_path)
     for p in path_list:
         if p.endswith('.pkl'):
             try:
                 with open(p, 'rb') as f:                
                     data = pkl.load(f)
             except:
-                raise AssertionError("Couldn't open file at: %s" % str(p))
+                print("Couldn't open file at: %s" % str(p))
+    return
 
 
-if __name__ == "__main__":
-    directory_path = os.path.join(_path, '..','src','apps','assets','dict') 
-    test_open_pickle(directory_path)
+# if __name__ == "__main__":
+#     directory_path = os.path.join(_path, '..','sluspell','apps','assets','dict') 
+#     test_open_pickle(directory_path)
 
 

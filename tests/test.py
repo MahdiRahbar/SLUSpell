@@ -5,9 +5,9 @@ import sys
 
 _path = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(os.path.join(_path, '..'))
-from src.apps import spellchecker
-from .open_test import OpenTest
-from .check_import import test_open_pickle
+from sluspell.apps import spellchecker
+from open_test import OpenTest
+from check_import import test_open_pickle
 
 # def test():
 #     # with pytest.raises(SystemExit):
@@ -21,7 +21,7 @@ if __name__ == "__main__":
     tests, answers =  newObj.get_tests()
     newObj.test_input()
 
-    dir_path_dict = os.path.join(_path, '..','src','apps','assets','dict') 
+    dir_path_dict = os.path.join(_path, '..','sluspell','apps','assets','dict') 
     test_open_pickle(dir_path_dict)
     
     

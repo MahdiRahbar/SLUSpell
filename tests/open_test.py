@@ -49,13 +49,17 @@ class OpenTest:
         return test_cases, test_results
 
     def test_input(self):
+        test_id = 1
         if self.tests and self.answers:
             for test, answer in zip(self.tests, self.answers):
-                self.assertText(test,answer)
+                self.assertText(test,answer, test_id = test_id )
+                test_id += 1 
         else:
             raise AssertionError("No file test and answer file is defined.")
     
-    def assertText(self, test_case, correct_case , id = None, 
+    def assertText(self, test_case, correct_case , test_id = None, 
                     message= '' ):
-        assert test_case == correct_case , 'The input test case isn\'t match with the correct case. \n \
-                            Excepted: {} \n but received: {}'.format(correct_case, test_case)
+        try:
+            assert test_case == correct_case
+        except AssertionError as e:
+            print('Test case {}: The input test case does not match with the correct case. \n\n Excepted: {} \n but received: {}\n--------------------------\n'.format(test_id,correct_case, test_case))
