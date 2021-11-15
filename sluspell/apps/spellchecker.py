@@ -17,7 +17,7 @@ from .langSpec import *
 
 from numpy import log
 
-
+_path = os.path.abspath(os.path.dirname(__file__))
 
 class Dictionary:
     def __init__(self, lang, formality) -> None:
@@ -68,9 +68,7 @@ class WordCheck:
         self.wordList_len = len(self.word_list)
         self.uni_dict, self.bi_dict = self.get_dict()
 
-        self.letters = set(''.join(self.open_pickle(os.path.join('apps','assets', 'dict', "{}_chars.pkl".format(self.language)))).lower())
-
-
+        self.letters = set(''.join(self.open_pickle(os.path.join(_path,'assets', 'dict', "{}_chars.pkl".format(self.language)))).lower())
 
 
     def open_pickle(self, path):
