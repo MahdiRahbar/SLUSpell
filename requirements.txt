@@ -1,6 +1,6 @@
 ###### Requirements without Version Specifiers ######`
 flask
-asyncio
+numpy
 pytest
 
 ###### Requirements with Version Specifiers ######`
