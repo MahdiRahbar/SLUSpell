@@ -5,14 +5,20 @@
 # License: -
 
 
-from flask import Flask, render_template, request, jsonify
-from apps.spellchecker import SpellChecker
-
 # added for debugging purposes
 import logging, traceback 
 import pickle as pkl 
+import os 
+import sys
 
-with open('templates/assets/main_page.pkl', 'rb') as f:
+
+_path = os.path.abspath(os.path.dirname(__file__))
+sys.path.append(os.path.join(_path))
+from flask import Flask, render_template, request, jsonify
+from apps.spellchecker import SpellChecker
+
+
+with open(os.path.join(_path,'templates','assets','main_page.pkl'), 'rb') as f:
     main_page = pkl.load(f)
 
 
@@ -94,6 +100,8 @@ def register():
     return render_template('auth/register.html')
 
 
+def main():
+    app.run(debug=True)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    main()
