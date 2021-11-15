@@ -1,5 +1,5 @@
 Spell_Checker
-├── src/
+├── sluspell/
 │   ├── __init__.py
 │   ├── db.py
 │   ├── schema.sql
