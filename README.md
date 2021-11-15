@@ -8,7 +8,7 @@
 
 # SLUSpell
 
-SLUSpell is an opensource project that provide a simple user iterface for spell checking. This project currently supports English and Irish. 
+SLUSpell is an open-source project that provides a simple user interface for spell checking. This project currently supports English and Irish. 
 
 *****
 ## Usage Guide 
@@ -46,12 +46,9 @@ python3 main.py
 ```
 
 ## Todo 
-1. Supporting Irish Spell Checker. 
-2. Supporting multi lingual interface.
-3. Using context based spell checker. 
-4. Using more accurate dictionaries.
-5. Adding registraiton system to save client's work. 
-6. Adding more test cases to check the robustness of the application. 
-## License
+1. Using more accurate dictionaries.
+2. Adding more test cases to check the robustness of the application. 
+3. Adding more complicated models to handle misspelled cases better.
 
+## License
 SLUSpell is licensed under the terms of GNU General Public License v3. This library can be used for both academic and commercial purposes. For more information, check out the [LICENSE](https://github.com/MahdiRahbar/Spell_Checker/blob/main/LICENSE.txt) file.
