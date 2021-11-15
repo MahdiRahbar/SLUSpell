@@ -4,9 +4,9 @@
 [![PyPi download](https://pypip.in/d/SLUSpell/badge.png)](https://crate.io/packages/SLUSpell/)
 
 
-# SluSpell
+# SLUSpell
 
-SluSpell is an opensource project that provide a simple user iterface for spell checking. This project currently supports English and Irish. 
+SLUSpell is an opensource project that provide a simple user iterface for spell checking. This project currently supports English and Irish. 
 
 *****
 ## Usage Guide 
