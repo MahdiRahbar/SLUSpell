@@ -47,6 +47,7 @@ python3 main.py
 
 ## Out of repo contributions
 - **Irish large preprocessed data**
+
 [This repo](https://github.com/Annoyed-Raven/Irish_processing) contains pure Irish words extracted from several sources. Some of the main text files before preprocessing contained around 1400 non-Irish characters.
 
 
