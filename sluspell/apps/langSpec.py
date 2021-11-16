@@ -98,11 +98,14 @@ class Irish(Text):
             output: returns the fianl string
         '''
         irish_upper = ('A','E','I','O','U','Á','É','Í','Ó','Ú')
-        irish_exp = ('n','t')        
-        if (input_word[0] in irish_exp) and \
-            (input_word[1] in irish_upper):
-            input_word =  input_word[0].lower() + \
-                                    '-' + input_word[1:].lower()
+        irish_exp = ('n','t')  
+        if len(input_word)>2:  
+            if (input_word[0] in irish_exp) and \
+                (input_word[1] in irish_upper):
+                input_word =  input_word[0].lower() + \
+                                        '-' + input_word[1:].lower()
+            else: 
+                input_word = input_word.lower()
         else: 
             input_word = input_word.lower()
         return input_word
