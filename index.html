@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>SLUSpell</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../static/css/style.css">
+				
+		<script src="{{ url_for('static', filename='../static/js/async.js') }}"></script>
+		<script src="../static/js/async.js"></script>
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+	  <script src="{{ url_for('static', filename='../static/js/async.js') }}"></script> 
+  </head>
+  <body>
+		
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+						<i class="fa fa-bars"></i>
+						<span class="sr-only">Menu</span>
+	        		</button>
+        		</div>
+				<div class="p-4 pt-5">
+		  			<h1><a href="index.html" class="logo">SLUSpell</a></h1>
+	        		<ul class="list-unstyled components mb-5">
+	          			<li class="active">
+						<a aria-expanded="false" >{{ message['Language'] }}</a>
+						<select class="form-control dropdown-toggle"  data-toggle="collapse" aria-expanded="false" id="Language_Selection" style="width: 100%;" name='language_selector'>
+							<option selected value="en">English</option>
+							<option  value="ga">Irish</option>
+							<option disabled >{{ message['More Coming Soon!'] }}</option>
+						</select>
+	          			</li>				
+			 
+			  			<br>
+	          			<li>
+              			<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" >{{ message['Formality'] }}</a>
+						<select class="form-control" id="Formality_Selection" style="width: 100%;"  name='formality_selector'>
+							<option selected value="formal">{{ message['Formal'] }}</option>
+							<option value="informal">{{ message['Informal'] }}</option>  
+						</select>  
+	          			</li>
+						  
+						<li>
+						<hr>     
+						<!-- <img src={{ url_for('static', filename='../static/img/ie.svg') }} alt="" height="25em" width="25em" > -->
+						<!-- <img src={{ url_for('static', filename='../static/img/us.svg') }} alt="" height="87" width="100""> -->
+						<form action='/'  method="post">
+							<select class="form-control dropdown-toggle " data-toggle="collapse" onchange="this.form.submit()" aria-expanded="false" id="main_page_lang" style="width: 50%;" name='main_page_lang'>
+								<!-- <option selected value="en-us"><img src={{ url_for('static', filename='../static/img/us.svg') }} alt="" height="15em" width="15em" > English</option> -->
+								{{ message['main_lang_selector'] | safe }}
+							</select>
+						</form>
+
+						</li>
+					</ul>
+
+					<div class="footer">
+						<p> <!-- Copyrihgt -->
+							{{ message['Copyright'] | safe }}
+						</p>
+					</div>
+	    		</div>
+    		</nav>
+
+        	<!-- Page Content  -->
+			<div id="content" class="container p-4 p-md-5 pt-5">
+				<div class="row">
+					<div class="col-md-8 p-4 p-md-5 pt-5" style="position: relative !important;">
+						<div class="col-md-12 p-4 p-md-5 pt-5" id="Text_box" name='input_text'  contenteditable="true" textPlaceholder="{{ message['text_box'] }}" ></div>
+						<img src="https://img.icons8.com/small/24/000000/copy.png" class='copyToClipboardButton' onclick="copyToClipboard()"  title="Copy to clipboard" style="padding-left: 60px;margin-top: 20px;"/>
+					</div>
+					<!-- <div id="Text_box" name='input_text' class="col-md-8 p-4 p-md-5 pt-5" contenteditable="true" textPlaceholder="{{ message['text_box'] }}" style="position: relative !important;" ></div> -->
+					
+					<div class="lead col-4 p-4 p-md-5 pt-5" >
+						<div class="h-75" id="Text_display" textPlaceholder= "{{ message['text_display'] }}"></div>
+								<p id="indicator"></p> 
+							<p class="" style="position:absolute; bottom:0;" >
+								<!-- <p class="fixed " style="bottom: 0%;" >Word Count: <span id="word_count">0</span></p>							 -->
+							</p>
+						
+					</div>
+				</div>
+			</div>	
+
+		</div>
+
+		<!-- <script>
+			// setInterval(function(){loadXMLDoc();},5000);
+			function listen(){
+			setInterval(async,5000);
+		};
+		</script> -->
+
+
+    <script src="../static/js/popper.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/main.js"></script>
+	
+	<script src="../static/js/script.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+  </body>
+</html>
