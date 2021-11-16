@@ -52,3 +52,6 @@ python3 main.py
 
 ## License
 SLUSpell is licensed under the terms of GNU General Public License v3. This library can be used for both academic and commercial purposes. For more information, check out the [LICENSE](https://github.com/MahdiRahbar/Spell_Checker/blob/main/LICENSE.txt) file.
+
+## Irish processing raw files
+https://github.com/Annoyed-Raven/Irish_processing
