@@ -8551,3 +8551,22 @@
             /* ----------------------------- */
       width: 10em;
     }
+
+
+    
+.copyToClipboardButton {
+  opacity: 0.5;
+  position: absolute;
+  bottom: 0px;
+  /* top:0%; */
+  right: 0px;
+}
+
+.copyToClipboardButton:hover {
+  opacity: 1;
+  position: absolute;
+  bottom: 0px;
+  /* top:0%; */
+  right: 0px;
+
+}

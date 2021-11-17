@@ -169,3 +169,20 @@ function corrector(input_id,  word_index){
   // call_async();
 
 };
+
+
+// ================================
+
+function copyToClipboard() {
+  let textarea = document.getElementById("Text_box");
+  if(textarea.textContent == ""){
+    return
+  }else{
+    /* Select the text field */
+    // textarea.select();
+    // textarea.setSelectionRange(0, 99999); /* For mobile devices */
+
+    /* Copy the text inside the text field */
+    navigator.clipboard.writeText(textarea.textContent);
+}
+};
