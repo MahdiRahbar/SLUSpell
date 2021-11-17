@@ -19,8 +19,8 @@ if __name__ == "__main__":
 
     open_obj = OpenTest(file_path[0])
     tests, answers =  open_obj.get_tests()
-    test_obj = TestTextList(tests[:10], answers[:10], 'ga', 'formal')
-    test_obj.test_input()
+    test_obj = TestTextList(tests, answers, 'ga', 'formal')
+    test_obj.test_input_single()
 
     dir_path_dict = os.path.join(_path, '..','sluspell','apps','assets','dict') 
     test_open_pickle(dir_path_dict)

@@ -4,6 +4,7 @@
 # Developers: Mahdi Rahbar, Nicolas Prudencio
 # License: GNU General Public License v3.0
 
+import re
 import os 
 import sys 
 import time
@@ -89,8 +90,19 @@ class SpellCheckAPI:
                     text_candidates_list += [self.spellChecked_text[i]['word']]
         return text_candidates_list
 
+    def single_corrected_case(self):
+        corrected_string = '' 
+        for i in range(len(self.spellChecked_text)):            
+            if self.spellChecked_text[i]['correction_flag']:
+                correct_word = self.spellChecked_text[i]['correct']
+                corrected_string = corrected_string + correct_word[0]
+            else: 
+                corrected_string = corrected_string + self.spellChecked_text[i]['word']
+        return corrected_string
+
     def call(self):
-        return self.make_combinations()
+        # return self.make_combinations()
+        return self.single_corrected_case()
                     
 
 class TestTextList:
@@ -100,7 +112,7 @@ class TestTextList:
         self.lang = lang 
         self.formality = formality
 
-    def test_input(self):
+    def test_input_list(self):
         test_id = 1
         counter = 0
         start_time = time.time()
@@ -108,18 +120,48 @@ class TestTextList:
             for test, answer in zip(self.tests, self.answers):
                 spellObj = SpellCheckAPI(test, self.lang, self.formality)
                 candidate_list = spellObj.call()
-                if self.assertText(candidate_list, answer, test_id = test_id ):
+                if self.assertTextList(candidate_list, answer, test_id = test_id ):
                     counter +=1 
                 test_id += 1 
         else:
-            raise AssertionError("No file test and answer file is defined.")
+            raise AssertionError("No test file and answer file is found!")
         print()
         print("------------------------------------------------------------------------")
-        print("The final accuracy of the application on the current test set is: %{:.2f}".format((len(self.tests)-counter)/len(self.tests)*100) )
+        print("The final accuracy of the application on the current test set is: %{:.2f}".format((counter)/len(self.tests)*100) )
         print("Finished in %d:%d s."%(((time.time()-start_time)/60),(time.time()-start_time)%60))
 
+    def test_input_single(self):
+        test_id = 1
+        counter = 0
+        start_time = time.time()
+        if self.tests and self.answers:
+            for test, answer in zip(self.tests, self.answers):
+                try:
+                    spellObj = SpellCheckAPI(test, self.lang, self.formality)
+                    corrected_string = spellObj.call()
+                    corrected_string = re.sub( r"&lt;", "<", corrected_string) 
+                    corrected_string = re.sub( r"&gt;",">", corrected_string)
+                    if test[0]==test[0].upper():
+                        lower_flag = False
+                    else:
+                        lower_flag = True
+                    if self.assertTextSingle(corrected_string , answer, test_id = test_id, lower_flag= lower_flag ):
+                        counter +=1 
+                    test_id += 1 
+                except Exception as e: 
+                    print("------------------------------------------------------------------------")
+                    print("An exception raised in test case  %d."%test_id)
+                    print(e)
+                    print()
+                    test_id += 1
+        else:
+            raise AssertionError("No test file and answer file is found!")
+        print()
+        print("------------------------------------------------------------------------")
+        print("The final accuracy of the application on the current test set is: %{:.2f}".format((counter)/len(self.tests)*100) )
+        print("Finished in %d:%d s."%(((time.time()-start_time)/60),(time.time()-start_time)%60))
     
-    def assertText(self, test_case, correct_case , test_id = None, 
+    def assertTextList(self, test_case, correct_case , test_id = None, 
                     message= '' ):
         test_case_lower = []
         for i in range(len(test_case)):
@@ -131,3 +173,13 @@ class TestTextList:
             print('Test case {}: The input test case does not match with the correct case. \n\n Excepted: {} \n but received: {}\n--------------------------\n'.format(test_id,correct_case, test_case))
             return False
         
+    def assertTextSingle(self, test_case, correct_case , test_id = None, lower_flag= False, 
+                message= '' ):
+        if test_case!=None and lower_flag: 
+            test_case = test_case.lower()
+        try:
+            assert (correct_case == test_case) 
+            return True 
+        except AssertionError as e:
+            print('Test case {}: The input test case does not match with the correct case. \n\n Excepted: {} \n but received: {}\n--------------------------\n'.format(test_id,correct_case, test_case))
+            return False
