@@ -1,0 +1,9 @@
+recursive-include sluspell/apps *.py
+recursive-include sluspell/apps/assets/dict *.pkl *.txt
+recursive-include sluspell/static/js *.js
+recursive-include sluspell/static/css *.css
+recursive-include sluspell/static/img *.jpg *.svg *.png
+recursive-include sluspell/templates *.html
+recursive-include sluspell/templates/assets *.pkl
+recursive-include sluspell/templates/auth *.html
+include README.md
