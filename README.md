@@ -13,8 +13,10 @@ SLUSpell is an open-source project that provides a simple user interface for spe
 ## Application Performance - *version 0.1.3*
 - **The Irish 10100 test case**
 	- **Accuracy**
+	
 	The accuracy of the application *version 0.1.3* on `corrections500.tsv` test cases is %80.65.
 	- **Average Runtime**
+	
 	The average runtime of the application, including the API call, preprocessing, and postprocessing, is 0.233 ms. 
 	
 *****
