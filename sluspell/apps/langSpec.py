@@ -43,7 +43,17 @@ class Text:
         # str_chunck = [x.group() for x in re.finditer( r'(\w+[-\']*\w*|\s+|[!,.:?]+)', input_str)]   #    r'(\w*\'*\w+?|\s+|[!,.:?]+)'
         str_chunck = []
 
-        p = re.compile(r'(\w+[-\']*\w*|\s+|[!,.:?]+)') 
+        punctuations = string.punctuation + '^D'
+        # Baseline rule:
+            # \w+[-\']*\w*|\s+|[!,.:?]+)
+
+        # p = re.compile(r'(<*\d*\.*[-+*]*\d*\w*[-\']*\w*>*|\
+        #        \d*\.*[-+*]*\d*\w+[-\']*\w*|\
+        #         \s+|\
+        #         [!,.:?]+[%s]*|\
+        #         [\u263a-\U0001f645]*)'%punctuation) 
+
+        p = re.compile(r'(\w+[-\']*\w*|\s+|[%s]*[\u263a-\U0001f645]*)'%punctuations)                 
         for m in p.finditer(input_str):
             str_chunck.append(m.group(0))
 

@@ -10,6 +10,7 @@ import os
 import re 
 from collections import Counter 
 import string 
+from string import punctuation
 
 import sys
 # sys.path.append()
@@ -183,10 +184,26 @@ class WordCheck:
     def edits2(self, word): 
         "All edits that are two edits away from `word`."
         return (e2 for e1 in self.edits1(word) for e2 in self.edits1(e1))  
+    
+    def check_exceptions(self, word, position):
+        if bool(re.match("(<+\d*\.*\d*\w*>*|\d+\.*[-+/*]*\d*|[%s]+|[\u263a-\U0001f645]+)"%punctuation, word)):
+            return True 
+        elif bool(re.match("([A-Z][A-Za-z]*)", word)) and position>0 :
+            return True 
+        else:
+            return False 
 
     def run_checker(self):  
         for i in range(len(self.text_chunks)):
-            if (self.text_chunks[i]['check_flag']) == True and (self.text_obj.to_lower(self.text_chunks[i]['word']) not in self.uni_dict): 
+            if self.check_exceptions(self.text_chunks[i]['word'],i):
+                self.text_chunks[i]['correction_flag'] = False                      
+                temp_word = re.sub(r"<", "&lt;", self.text_chunks[i]['word'])
+                temp_word = re.sub(r">", "&gt;", temp_word)
+                self.text_chunks[i]['word'] = temp_word
+                self.text_chunks[i]['correct'] = self.text_chunks[i]['word']                
+                self.text_chunks[i]['new_string'] = self.text_chunks[i]['word'] 
+
+            elif (self.text_chunks[i]['check_flag']) == True and (self.text_obj.to_lower(self.text_chunks[i]['word']) not in self.uni_dict): 
                 temp_word_list = list(self.correction(self.text_obj.to_lower(self.text_chunks[i]['word'])))            
                 self.text_chunks[i]['correction_flag'] = True
                 
