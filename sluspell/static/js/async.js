@@ -9,7 +9,13 @@ function WordDictionary(input_json){
         }
         for (let i = 0; i < n; i++) {
             let temp = input_json[i];
-            word_list.push(temp['new_string'].replace(/ /g, '\u00a0')); // &nbsp;   
+            if (temp['correction_flag']){
+              word_list.push(temp['new_string']); // &nbsp;    .replace(/ /g, '\u00a0')
+
+            }else{
+              word_list.push(temp['new_string'].replace(/ /g, '\u00a0')); // &nbsp;    
+            }
+              
             }
 
              
