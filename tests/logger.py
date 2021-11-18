@@ -9,7 +9,7 @@ _path = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(os.path.join(_path, '..'))
 from sluspell.apps.spellchecker import SpellChecker
     
-def testlogger(tests, lang, formality, file_name = 'sluspell_test.tsv'):
+def log_single_test_cases(tests, lang, formality, file_name = 'sluspell_test.tsv'):
     counter = 0 
     for test in tests:
         if counter%10 ==0 :

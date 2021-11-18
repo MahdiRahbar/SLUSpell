@@ -30,6 +30,6 @@ if __name__ == "__main__":
     # file_path = [os.path.join(_testPath, 'beta_test.txt'),]
     # open_obj = OpenTest(file_path[0])
     # tests, _ =  open_obj.get_tests()
-    # testlogger(tests,'ga','formal', file_name = 'logs/sluspell_test.tsv')
+    # log_single_test_cases(tests,'ga','formal', file_name = 'logs/sluspell_test.tsv')
     
     
