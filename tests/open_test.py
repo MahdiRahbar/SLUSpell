@@ -53,7 +53,8 @@ class OpenTest:
         test_results = []
         for i in range(len(test_list)):
             test_cases.append(test_list[i][0])
-            test_results.append(test_list[i][1])
+            if len(test_list[i])>1:
+                test_results.append(test_list[i][1])
         return test_cases, test_results
     
     def call(self):
@@ -130,6 +131,27 @@ class TestTextList:
         print("The final accuracy of the application on the current test set is: %{:.2f}".format((counter)/len(self.tests)*100) )
         print("Finished in %d:%d s."%(((time.time()-start_time)/60),(time.time()-start_time)%60))
 
+    def testlogger(self, file_name = 'sluspell_test.tsv'):
+        for test, answer in zip(self.tests, self.answers):
+            try:
+                spellObj = SpellCheckAPI(test, self.lang, self.formality)
+                corrected_string = spellObj.call()
+                corrected_string = re.sub( r"&lt;", "<", corrected_string) 
+                corrected_string = re.sub( r"&gt;",">", corrected_string)
+                # cap_flag_list = [bool(re.match("([A-Z])", char)) for char in test]
+                # to_upper = lambda word: (list(x) for x in itertools.permutations(word))
+                new_line = test + '\t' + corrected_string
+                self.logger(new_line, file_name )
+            except:
+                pass
+
+
+    def logger(self, new_line, file_name):
+        with open(file_name, "a", encoding= "utf-8") as f:
+            f.write(new_line)
+            f.write("\n")
+
+
     def test_input_single(self):
         test_id = 1
         counter = 0
@@ -141,6 +163,10 @@ class TestTextList:
                     corrected_string = spellObj.call()
                     corrected_string = re.sub( r"&lt;", "<", corrected_string) 
                     corrected_string = re.sub( r"&gt;",">", corrected_string)
+
+                    # cap_flag_list = [bool(re.match("([A-Z])", char)) for char in test]
+                    # to_upper = lambda word: (list(x) for x in itertools.permutations(word))
+
                     if test[0]==test[0].upper():
                         lower_flag = False
                     else:

@@ -8,6 +8,7 @@ sys.path.append(os.path.join(_path, '..'))
 from sluspell.apps import spellchecker
 from open_test import *
 from check_import import test_open_pickle
+from logger import * 
 
 # def test():
 #     # with pytest.raises(SystemExit):
@@ -24,5 +25,11 @@ if __name__ == "__main__":
 
     dir_path_dict = os.path.join(_path, '..','sluspell','apps','assets','dict') 
     test_open_pickle(dir_path_dict)
+
+    # _testPath = os.path.join(_path, 'assets')
+    # file_path = [os.path.join(_testPath, 'beta_test.txt'),]
+    # open_obj = OpenTest(file_path[0])
+    # tests, _ =  open_obj.get_tests()
+    # testlogger(tests,'ga','formal', file_name = 'logs/sluspell_test.tsv')
     
     
