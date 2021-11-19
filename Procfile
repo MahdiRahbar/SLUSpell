@@ -1,1 +1,1 @@
-web: gunicorn sluspell.main
+web: gunicorn sluspell.main:app
