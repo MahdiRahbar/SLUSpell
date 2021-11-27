@@ -152,22 +152,39 @@ function positionCursor() {
   // Set cursor on focus
   tag.focus();
 }
-
-
-function call_async(){
-  async();
-  // var tag = document.getElementById("Text_box");  
-  // fix_cursor(tag, tag.innerHTML);
-
-  // fix_cursor(input_element,input_element.innerHTML);
+/// ------------------------------------------------------
+// This new function is added to handle the request queue problem 
+//    while calling the async functions in deployment. it utilizes 
+//    REQUEST_STATUS flag to handle the wait hold. 
+var REQUEST_STATUS = true; 
+function call_async() {
+  if(REQUEST_STATUS===true) {//we want it to match
+      setTimeout(call_async, 50);//wait 50 millisecnds then recheck
+      async();
+      REQUEST_STATUS = false; 
+      return;
+      
+  }  
 }
 
+// function call_async(){
+//   async();
+//   // var tag = document.getElementById("Text_box");  
+//   // fix_cursor(tag, tag.innerHTML);
+
+//   // fix_cursor(input_element,input_element.innerHTML);
+// }
+
+
+/// ------------------------------------------------------
 
 function corrector(input_id,  word_index){
   // hide_correct(input_id);
-  async_correction(input_id, word_index);
+  if (REQUEST_STATUS===true){
+    async_correction(input_id, word_index);
+    REQUEST_STATUS = false; 
+  }  
   // call_async();
-
 };
 
 

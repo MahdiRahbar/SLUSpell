@@ -39,7 +39,7 @@ function ShowMisspelled(input_json){
             word_list.push(temp['correct']);   
             word_id.push(temp['id']);
             // temp_string.push("<a class='hl_faded' id='word"+ temp['id'] + "\'" + "onmouseover='show_correct("+ temp['id'] +")' onclick='corrector("+temp['id']+")'>"+temp['correct']+"<a>");
-            console.log(temp);
+            // console.log(temp);
             let new_string= '';
             for (let j = 0; j < temp['correct'].length; j++) {
                 new_string = new_string + "<button type='button' class='btn btn-light word"+temp['id']+ " hl_"+j+" hl_faded' id='word"+ temp['id']+ "\'" + "onmouseover='show_correct("+ temp['id'] +")' onclick='corrector("+temp['id']+"," +j + ")'>"+temp['correct'][j]+"</button>" + "</br>";
@@ -52,7 +52,8 @@ function ShowMisspelled(input_json){
     return correct_string;   
 };
 
-  
+
+
   function placeCaretAtEnd(el) {
     el.focus();
     if (typeof window.getSelection != "undefined" &&
@@ -71,6 +72,8 @@ function ShowMisspelled(input_json){
     }
   }
 
+
+
 function async(){
       let textData = document.getElementById("Text_box").textContent;
       let languageSelector = document.getElementById("Language_Selection").value;
@@ -84,10 +87,10 @@ function async(){
             let dataReply = JSON.parse(xml.responseText) ;// checked_text
             // document.getElementById("Text_display").innerHTML = dataReply.checked_text;
             // console.log(dataReply);
-            console.log(dataReply.checked_text);
+            // console.log(dataReply.checked_text);
 
             let html_string = WordDictionary(dataReply.checked_text);
-            console.log("called from inside async\n"+html_string);
+            // console.log("called from inside async\n"+html_string);
             let corrected_string = ShowMisspelled(dataReply.checked_text);
             // console.log("HTML String" + html_string);
 
@@ -95,6 +98,8 @@ function async(){
             document.getElementById("Text_box").innerHTML = html_string;
             document.getElementById("Text_display").innerHTML = corrected_string;
             placeCaretAtEnd(document.getElementById("Text_box"));
+
+            REQUEST_STATUS = true ; 
 
             // let input_element = document.getElementById("Text_box");
             // input_element.focus();
@@ -108,6 +113,7 @@ function async(){
         'language_selector' : languageSelector,
         'formality_selector' : formalitySelector
     });
+    // REQUEST_STATUS = false; 
     xml.send(dataSend)
     
 
@@ -125,7 +131,7 @@ function async_correction(input_id, word_index){
       xml2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xml2.onload = function(event){
           let dataReply = JSON.parse(xml2.responseText) ;// checked_text
-          console.log(dataReply.checked_text);
+          // console.log(dataReply.checked_text);
 
           let html_string = WordDictionary(dataReply.checked_text);
           let corrected_string = ShowMisspelled(dataReply.checked_text);
@@ -133,6 +139,7 @@ function async_correction(input_id, word_index){
         //   console.log("HTML String" + html_string);
           document.getElementById("Text_box").innerHTML = html_string;
           document.getElementById("Text_display").innerHTML = corrected_string;
+          REQUEST_STATUS = true ; 
 
           event.preventDefault();
   };
@@ -140,7 +147,9 @@ function async_correction(input_id, word_index){
       'element_id' : element_id,
       'list_index' : list_index
   });
+  // REQUEST_STATUS = false; 
   xml2.send(dataSend)
+  
 //   event.preventDefault();
   
 };
