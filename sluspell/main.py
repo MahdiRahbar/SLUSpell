@@ -28,16 +28,20 @@ app = Flask(__name__)
 @app.route('/',  methods =['GET', 'POST'])
 def index():
     if request.method == 'GET':
-        page_lang = 'English'
+        page_lang = 'en'
         return render_template('index.html' , message = main_page[page_lang])
     elif request.method == 'POST':
         page_lang = request.form['main_page_lang']
-        if page_lang == "English":
+        if page_lang == "en":
             return render_template('index.html', message = main_page[page_lang])
-        elif page_lang == "Irish": 
+        elif page_lang == "ga": 
+            return render_template('index.html', message = main_page[page_lang])
+        elif page_lang == "fa":
+            return render_template('index.html', message = main_page[page_lang])
+        elif page_lang == "es":
             return render_template('index.html', message = main_page[page_lang])
         else:
-            return render_template('index.html' , message = main_page['English'])
+            return render_template('index.html' , message = main_page['en'])
     else:
         return "Something went wrong while loading the page!"
 
