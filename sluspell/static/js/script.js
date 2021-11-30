@@ -181,8 +181,9 @@ function call_async() {
 function corrector(input_id,  word_index){
   // hide_correct(input_id);
   if (REQUEST_STATUS===true){
-    async_correction(input_id, word_index);
     REQUEST_STATUS = false; 
+    async_correction(input_id, word_index);
+    REQUEST_STATUS = true; 
   }  
   // call_async();
 };
