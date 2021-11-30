@@ -84,7 +84,7 @@ function async(){
         xml.open("POST", "/check", true);
         xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xml.onload = function(event){
-            let dataReply = JSON.parse(xml.responseText) ;// checked_text
+            dataReply = JSON.parse(xml.responseText) ;// checked_text
             // document.getElementById("Text_display").innerHTML = dataReply.checked_text;
             // console.log(dataReply);
             // console.log(dataReply.checked_text);
@@ -121,39 +121,57 @@ function async(){
 };
 
 
-
 function async_correction(input_id, word_index){
-    let element_id = input_id;    
-    let list_index = word_index;
+  let word = dataReply.checked_text[input_id];
+  dataReply.checked_text[input_id]['correction_flag'] = true;
+  dataReply.checked_text[input_id]['word'] = word['correct'][word_index];
+  dataReply.checked_text[input_id]['new_string'] = word['correct'][word_index];
+  dataReply.checked_text[input_id]['correction_flag'] = false;
+  dataReply.checked_text[input_id]['word'] = word['correct'][word_index];
+  dataReply.checked_text[input_id]['new_string'] = word['correct'][word_index];
 
-      let xml2 = new XMLHttpRequest();
-      xml2.open("POST", "/correct", true);
-      xml2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xml2.onload = function(event){
-          let dataReply = JSON.parse(xml2.responseText) ;// checked_text
-          // console.log(dataReply.checked_text);
-
-          let html_string = WordDictionary(dataReply.checked_text);
-          let corrected_string = ShowMisspelled(dataReply.checked_text);
-
-        //   console.log("HTML String" + html_string);
-          document.getElementById("Text_box").innerHTML = html_string;
-          document.getElementById("Text_display").innerHTML = corrected_string;
-          REQUEST_STATUS = true ; 
-
-          event.preventDefault();
-  };
-  dataSend = JSON.stringify({
-      'element_id' : element_id,
-      'list_index' : list_index
-  });
-  // REQUEST_STATUS = false; 
-  xml2.send(dataSend)
+  console.log(dataReply.checked_text[input_id])
+  let html_string = WordDictionary(dataReply.checked_text);
+  let corrected_string = ShowMisspelled(dataReply.checked_text);
   
-//   event.preventDefault();
-  
+  document.getElementById("Text_box").innerHTML = html_string;
+  document.getElementById("Text_display").innerHTML = corrected_string;
+  placeCaretAtEnd(document.getElementById("Text_box"));
+
+  REQUEST_STATUS = true ; 
 };
 
 
+// function async_correction(input_id, word_index){
+//     let element_id = input_id;    
+//     let list_index = word_index;
+
+//       let xml2 = new XMLHttpRequest();
+//       xml2.open("POST", "/correct", true);
+//       xml2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//       xml2.onload = function(event){
+//           let dataReply = JSON.parse(xml2.responseText) ;// checked_text
+//           // console.log(dataReply.checked_text);
+
+//           let html_string = WordDictionary(dataReply.checked_text);
+//           let corrected_string = ShowMisspelled(dataReply.checked_text);
+
+//         //   console.log("HTML String" + html_string);
+//           document.getElementById("Text_box").innerHTML = html_string;
+//           document.getElementById("Text_display").innerHTML = corrected_string;
+//           REQUEST_STATUS = true ; 
+
+//           event.preventDefault();
+//   };
+//   dataSend = JSON.stringify({
+//       'element_id' : element_id,
+//       'list_index' : list_index
+//   });
+//   // REQUEST_STATUS = false; 
+//   xml2.send(dataSend)
+  
+// //   event.preventDefault();
+  
+// };
 
 
