@@ -130,7 +130,7 @@ function async_correction(input_id, word_index){
   dataReply.checked_text[input_id]['word'] = word['correct'][word_index];
   dataReply.checked_text[input_id]['new_string'] = word['correct'][word_index];
 
-  console.log(dataReply.checked_text[input_id])
+  // console.log(dataReply.checked_text[input_id])
   let html_string = WordDictionary(dataReply.checked_text);
   let corrected_string = ShowMisspelled(dataReply.checked_text);
   
