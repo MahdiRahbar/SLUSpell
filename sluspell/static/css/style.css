@@ -8570,3 +8570,8 @@
   right: 0px;
 
 }
+
+/* ------------------------ Styling for the interface help  ------------------------------- */
+#main_page_lang{
+  padding-right: 0.5em !important;
+}
