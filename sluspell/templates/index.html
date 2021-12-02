@@ -89,7 +89,7 @@
 														</button>
 														</div>
 														<div class="modal-body">
-															<p style="color: black;"> You can choose which language you are writing so that SLUSpell adjusts itself to output the best spell checking results! </p>
+															<p style="color: black;"> You can choose which language you are writing so that SLUSpell adjusts itself to output the best spell-checking results! </p>
 														</div>
 														<div class="modal-footer">
 														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -108,7 +108,7 @@
 														</button>
 														</div>
 														<div class="modal-body">
-															<p style="color: black;"> SLUSpell is designed to change its sensitivity based on the users needs. If you are writing for a friend, probably you are using an informal language and if you are writing a book or an course article, you should choose informal.  </p>
+															<p style="color: black;"> SLUSpell is designed to change its sensitivity based on the users' needs. If you are writing for a friend, you are probably using informal language, and if you are writing a book or a research article, you should choose Formal.  </p>
 														</div>
 														<div class="modal-footer">
 														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -123,12 +123,13 @@
 
 							<form action='/'  method="post">
 								<div class="row">
-									<div class="col-sm-9 pr-1">
+									<div class="col-sm-3 pr-0"><span class="iconify" data-icon="fa:language" style="color: white;" data-width="24"></span></div>
+									<div class="col-sm-6 pl-1">
 										<select class="btn-sm form-control dropdown-toggle w-75 h-75 p-0" data-toggle="collapse" onchange="this.form.submit()" aria-expanded="false" id="main_page_lang" style="padding-right:0;"  name='main_page_lang'>
 											{{ message['main_lang_selector'] | safe }}
 										</select>		
 									</div>
-									<div class="col-sm-3 px-1">
+									<div class="col-sm-3 px-0">
 										<button type="button" class="btn btn-primary" style="padding-top: 0%;" data-toggle="modal"  data-target="#interface_lang">
 											<span class="iconify" data-icon="bi:question-circle"></span>
 										</button>
@@ -146,7 +147,7 @@
 														</button>
 														</div>
 														<div class="modal-body">
-															<p style="color: black;"> Here you can select the language of interface! </p>
+															<p style="color: black;"> Here you can select the language of the interface! </p>
 														</div>
 														<div class="modal-footer">
 														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
