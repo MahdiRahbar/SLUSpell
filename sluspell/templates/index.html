@@ -78,45 +78,9 @@
 							</select>  							
 							</li>
 							
-							<li>				
-												<div class="modal fade" id="lang_help" tabindex="-1" role="dialog" aria-labelledby="lang_help_title" aria-hidden="true">
-													<div class="modal-dialog modal-dialog-centered" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-														<h5 class="modal-title" id="lang_help_title">The language you write!</h5>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-														</div>
-														<div class="modal-body">
-															<p style="color: black;"> You can choose which language you are writing so that SLUSpell adjusts itself to output the best spell-checking results! </p>
-														</div>
-														<div class="modal-footer">
-														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-														</div>
-													</div>
-													</div>
-												</div>
+							<li>			
 
-												<div class="modal fade" id="formality_help" tabindex="-1" role="dialog" aria-labelledby="formality_help_title" aria-hidden="true">
-													<div class="modal-dialog modal-dialog-centered" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-														<h5 class="modal-title" id="formality_help_title">How Formal?</h5>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-														</div>
-														<div class="modal-body">
-															<p style="color: black;"> SLUSpell is designed to change its sensitivity based on the users' needs. If you are writing for a friend, you are probably using informal language, and if you are writing a book or a research article, you should choose Formal.  </p>
-														</div>
-														<div class="modal-footer">
-														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-														</div>
-													</div>
-													</div>
-												</div>
-								
+								{{ message['help'] | safe }}								
 											
 							<hr style="border-top: 0.1em solid whitesmoke;">     
 							
@@ -135,31 +99,13 @@
 										</button>
 									</div>
 								</div>
-												<!-- Button trigger modal -->
-												<!-- Modal -->
-												<div class="modal fade" id="interface_lang" tabindex="-1" role="dialog" aria-labelledby="interface_lang_title" aria-hidden="true">
-													<div class="modal-dialog modal-dialog-centered" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-														<h5 class="modal-title" id="interface_lang_title">Language of interface</h5>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-														</div>
-														<div class="modal-body">
-															<p style="color: black;"> Here you can select the language of the interface! </p>
-														</div>
-														<div class="modal-footer">
-														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-														</div>
-													</div>
-													</div>
-												</div>
+
 
 							</form>
 							</li>
 						</ul>
-		
+						
+						
 						<div class="footer">
 							<p> <!-- Copyrihgt -->
 								{{ message['Copyright'] | safe }}
@@ -168,7 +114,7 @@
 					</div>
 
 
-
+			
     		</nav>
 
         	<!-- Page Content  -->
