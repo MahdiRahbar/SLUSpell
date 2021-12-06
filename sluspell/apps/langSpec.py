@@ -53,7 +53,7 @@ class Text:
         #         [!,.:?]+[%s]*|\
         #         [\u263a-\U0001f645]*)'%punctuation) 
 
-        p = re.compile(r'(\w+[-\']*\w*|\s+|[%s]*[\u263a-\U0001f645]*)'%punctuations)                 
+        p = re.compile(r'(\w+[-\']*\w*|\'s|\'re|\s+|[%s]*[\u263a-\U0001f645]*)'%punctuations)                 
         for m in p.finditer(input_str):
             str_chunck.append(m.group(0))
 
