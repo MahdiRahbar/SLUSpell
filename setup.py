@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 # https://stackoverflow.com/questions/53779509/upload-failed-403-invalid-or-non-existent-authentication-information-python - python setup.py sdist bdist_wheel - twine upload dist/*
 setup(
     name='SLUSpell',  
-    version='0.1.3',
+    version='0.1.4',
     scripts=['setup'] ,
     author="Mahdi Rahbar",
     author_email="mahdirahbar01@gmail.com",
