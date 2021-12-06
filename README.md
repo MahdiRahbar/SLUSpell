@@ -1,6 +1,7 @@
 <a href="https://opensource.org/licenses/GPL-3.0"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" alt="License"></a>
 [![Build Status](https://app.travis-ci.com/MahdiRahbar/SLUSpell.svg?branch=main)](https://app.travis-ci.com/MahdiRahbar/SLUSpell)
 [![PyPI version](https://badge.fury.io/py/SLUSpell.svg)](https://badge.fury.io/py/SLUSpell)
+[![Downloads](https://pepy.tech/badge/sluspell)](https://pepy.tech/project/sluspell)
 <!-- [![PyPi version](https://pypip.in/v/SLUSpell/badge.png)](https://crate.io/packages/SLUSpell/)
 [![PyPi download](https://pypip.in/d/SLUSpell/badge.png)](https://crate.io/packages/SLUSpell/) -->
 
