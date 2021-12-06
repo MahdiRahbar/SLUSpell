@@ -69,7 +69,8 @@ class WordCheck:
         self.wordList_len = len(self.word_list)
         self.uni_dict, self.bi_dict = self.get_dict()
 
-        self.letters = set(''.join(self.open_pickle(os.path.join(_path,'assets', 'dict', "{}_chars.pkl".format(self.language)))).lower())
+        self.letters = set(''.join(self.open_pickle(os.path.join(_path,'assets', 'dict', "{}_chars.pkl".format(self.language)))).lower() + '\'-')
+        print(self.letters)
 
 
     def open_pickle(self, path):
@@ -101,7 +102,7 @@ class WordCheck:
         # return re.findall(r'\w+', text.lower())
         '''
         self.word_list = []
-        p = re.compile("\w+[-\']*\w*") 
+        p = re.compile("\w+[-\']*\w*")  # \w*\'re|\w*\'nt|\w\'t|[iI]\'m|
         for m in p.finditer(text):
             self.word_list.append(m.group(0).lower())
         # self.word_list = [x.group() for x in re.finditer( "\w+[-\']*\w*", input_str)]
@@ -189,6 +190,8 @@ class WordCheck:
         if bool(re.match("(<+\d*\.*\d*\w*>*|\d+\.*[-+/*]*\d*|[%s]+|[\u263a-\U0001f645]+)"%punctuation, word)):
             return True 
         elif bool(re.match("([A-Z][A-Za-z]*)", word)) and position>0 :
+            return True 
+        elif bool(re.match("('s)\s*$", word)) and position>0 :
             return True 
         else:
             return False 
