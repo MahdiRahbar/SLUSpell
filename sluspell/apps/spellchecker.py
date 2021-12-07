@@ -70,7 +70,6 @@ class WordCheck:
         self.uni_dict, self.bi_dict = self.get_dict()
 
         self.letters = set(''.join(self.open_pickle(os.path.join(_path,'assets', 'dict', "{}_chars.pkl".format(self.language)))).lower() + '\'-')
-        print(self.letters)
 
 
     def open_pickle(self, path):
@@ -187,11 +186,13 @@ class WordCheck:
         return (e2 for e1 in self.edits1(word) for e2 in self.edits1(e1))  
     
     def check_exceptions(self, word, position):
-        if bool(re.match("(<+\d*\.*\d*\w*>*|\d+\.*[-+/*]*\d*|[%s]+|[\u263a-\U0001f645]+)"%punctuation, word)):
+        if bool(re.match(r"(<+\d*\.*\d*\w*>*|\d+\.*[-+/*]*\d*|[%s]+|[\u263a-\U0001f645]+)"%punctuation, word)):
             return True 
-        elif bool(re.match("([A-Z][A-Za-z]*)", word)) and position>0 :
+        elif bool(re.match(r"([A-Z][A-Za-z]*)", word)) and position>0 :
             return True 
-        elif bool(re.match("('s)\s*$", word)) and position>0 :
+        elif bool(re.match(r"\\+w*", word)) and position>0 :
+            return True
+        elif bool(re.match(r"('s)\s*$", word)) and position>0 :
             return True 
         else:
             return False 
