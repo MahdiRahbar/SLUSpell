@@ -190,7 +190,7 @@ class WordCheck:
             return True 
         elif bool(re.match(r"([A-Z][A-Za-z]*)", word)) and position>0 :
             return True 
-        elif bool(re.match(r"\\+w*", word)) and position>0 :
+        elif bool(re.match(r"\\+w*", word)):
             return True
         elif bool(re.match(r"('s)\s*$", word)) and position>0 :
             return True 
