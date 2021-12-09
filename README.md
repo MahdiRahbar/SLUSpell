@@ -2,6 +2,7 @@
 [![Build Status](https://app.travis-ci.com/MahdiRahbar/SLUSpell.svg?branch=main)](https://app.travis-ci.com/MahdiRahbar/SLUSpell)
 [![PyPI version](https://badge.fury.io/py/SLUSpell.svg)](https://badge.fury.io/py/SLUSpell)
 [![Downloads](https://pepy.tech/badge/sluspell)](https://pepy.tech/project/sluspell)
+<a href="http://www.sluspell.com/" target="_blank"><img src="https://img.shields.io/website-up-down-green-red/http/monip.org.svg" alt="SLUSpell Website"></a>
 <!-- [![PyPi version](https://pypip.in/v/SLUSpell/badge.png)](https://crate.io/packages/SLUSpell/)
 [![PyPi download](https://pypip.in/d/SLUSpell/badge.png)](https://crate.io/packages/SLUSpell/) -->
 
@@ -14,7 +15,7 @@ SLUSpell is an open-source project that provides a simple user interface for spe
 - **The Irish 10100 test case**
 	- **Accuracy**
 	
-		The accuracy of the application *version 0.1.3* on `corrections500.tsv` test cases is %91.78.
+		The accuracy of the application *version 0.2.0* on `corrections500.tsv` test cases is %91.78.
 	- **Average Runtime**
 	
 		The average runtime of the application, including the API call, preprocessing, and postprocessing, is 0.233 ms. 
