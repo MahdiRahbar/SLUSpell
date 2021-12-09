@@ -29,6 +29,11 @@ To install SLUSpell, you can simply use the following commands:
 # on windows
 pip install sluspell
 
+# run sluspell in cmd or Windows PowerShell 
+sluspell
+
+# Open browser, go to localhost:5000 and enjoy!
+
 # on Linux/Mac 
 pip3 install sluspell
 ```
